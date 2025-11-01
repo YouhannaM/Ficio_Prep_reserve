@@ -1,2 +1,877 @@
 # Ficio_Prep_reserve
 Ficio_Prep_reserve
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficio - Autonomous Kitchens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+
+        .preorder-nav-btn {
+            background: #000;
+            color: #fff;
+            padding: 10px 24px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .preorder-nav-btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+            padding: 0 40px;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 200;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button {
+            background: #000;
+            color: #fff;
+            padding: 18px 48px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 100px 40px;
+            background: #f9f9f9;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            text-align: center;
+        }
+
+        .stat {
+            animation: fadeIn 1s ease;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 200;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 100px 40px;
+            background: #fff;
+        }
+
+        /* Food Waste Infographic Section */
+        .food-waste {
+            padding: 100px 40px;
+            background: #fff;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .infographic {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+
+        .waste-stat {
+            text-align: center;
+        }
+
+        .waste-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .circular-chart {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: #f0f0f0;
+            stroke-width: 8;
+        }
+
+        .circle {
+            fill: none;
+            stroke: #000;
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            transition: stroke-dashoffset 2s ease;
+            animation: fillCircle 2s ease forwards;
+        }
+
+        .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 42px;
+            font-weight: 200;
+            color: #000;
+        }
+
+        .waste-stat h3 {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .waste-stat p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .waste-impact {
+            text-align: center;
+            padding: 40px;
+            background: #f5f5f5;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .impact-text {
+            font-size: 20px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .impact-text strong {
+            color: #000;
+            font-weight: 500;
+        }
+
+        @keyframes fillCircle {
+            from {
+                stroke-dashoffset: 565;
+            }
+        }
+
+        .section-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 200;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+
+        .solution-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .solution-description {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .benefit {
+            background: #fff;
+            padding: 30px;
+            border-radius: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .benefit-number {
+            font-size: 36px;
+            font-weight: 200;
+            margin-bottom: 10px;
+        }
+
+        .benefit-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Product Section */
+        .product {
+            padding: 100px 40px;
+            background: #fff;
+        }
+
+        .product-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .product-name {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Pre-order Section */
+        .preorder {
+            padding: 120px 40px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        .preorder h2 {
+            font-size: 48px;
+            font-weight: 200;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .preorder-subtitle {
+            font-size: 20px;
+            color: #999;
+            margin-bottom: 40px;
+        }
+
+        .preorder-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #666;
+            background: #1a1a1a;
+        }
+
+        .form-group input::placeholder {
+            color: #666;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: #fff;
+            color: #000;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .pricing-info {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pricing-info .price {
+            font-size: 24px;
+            color: #fff;
+            font-weight: 300;
+        }
+
+        .schedule-section {
+            margin-top: 60px;
+            padding-top: 40px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: #333;
+            margin: 0 auto 40px;
+        }
+
+        .schedule-section h3 {
+            font-size: 24px;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .schedule-section p {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .schedule-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .schedule-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: #666;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Ficio</div>
+            <div class="nav-links">
+                <a href="#problem">Food Waste</a>
+                <a href="#solution">Solution</a>
+                <a href="#product">Product</a>
+                <a href="#team">Team</a>
+                <button class="preorder-nav-btn" onclick="scrollToPreorder()">Pre-Order</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Ficio</h1>
+            <p class="tagline">Autonomous Kitchens for the Future of Food</p>
+            <div class="hero-cta">
+                <a href="#preorder" class="cta-button">Reserve FicioPrep</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat">
+                <div class="stat-number">80%</div>
+                <div class="stat-label">Labor Efficiency Gain</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">67%</div>
+                <div class="stat-label">Faster Service Time</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">200%</div>
+                <div class="stat-label">Quality Improvement</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Waste Infographic Section -->
+    <section class="food-waste" id="problem">
+        <div class="section-container">
+            <h2 class="section-title">The Food Waste Challenge</h2>
+            <p class="section-subtitle">Where restaurants lose money and resources</p>
+            <div class="infographic">
+                <div class="waste-stat">
+                    <div class="waste-circle">
+                        <svg viewBox="0 0 200 200" class="circular-chart">
+                            <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
+                            <circle class="circle" cx="100" cy="100" r="90" style="stroke-dashoffset: 339"></circle>
+                        </svg>
+                        <div class="percentage">40%</div>
+                    </div>
+                    <h3>Total Food Waste</h3>
+                    <p>of all food in restaurants ends up as waste</p>
+                </div>
+                <div class="waste-stat">
+                    <div class="waste-circle">
+                        <svg viewBox="0 0 200 200" class="circular-chart">
+                            <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
+                            <circle class="circle" cx="100" cy="100" r="90" style="stroke-dashoffset: 424"></circle>
+                        </svg>
+                        <div class="percentage">25%</div>
+                    </div>
+                    <h3>Ingredient Prep Waste</h3>
+                    <p>lost during preparation and processing</p>
+                </div>
+                <div class="waste-stat">
+                    <div class="waste-circle">
+                        <svg viewBox="0 0 200 200" class="circular-chart">
+                            <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
+                            <circle class="circle" cx="100" cy="100" r="90" style="stroke-dashoffset: 396"></circle>
+                        </svg>
+                        <div class="percentage">30%</div>
+                    </div>
+                    <h3>Inventory Spoilage</h3>
+                    <p>from poor inventory management</p>
+                </div>
+            </div>
+            <div class="waste-impact">
+                <p class="impact-text">This represents <strong>$162 billion</strong> in losses annually for the restaurant industry</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="solution-content">
+            <h2 class="section-title">Revolutionizing Kitchens with AI</h2>
+            <p class="solution-description">
+                Autonomous kitchen software enabled by embodied AI form factors. 
+                From ingredient preparation to plating, Ficio transforms outdated kitchen workflows 
+                into efficient, automated processes.
+            </p>
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit-number">Zero</div>
+                    <div class="benefit-text">Food Waste</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-number">90%</div>
+                    <div class="benefit-text">Accuracy Rate</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-number">22 Weeks</div>
+                    <div class="benefit-text">ROI Payback</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section class="product" id="product">
+        <div class="section-container">
+            <h2 class="section-title">Introducing FicioPrep</h2>
+            <div class="product-intro">
+                <p class="product-description">
+                    AI layer between ingredients and kitchen. FicioPrep ensures zero food waste 
+                    and consistent quality at 1/3 of the cost through computer vision quality checks 
+                    and intelligent processing.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <p class="feature-text">200% Quality Check</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚖</div>
+                    <p class="feature-text">Weight Control</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧹</div>
+                    <p class="feature-text">Hygiene Control</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <p class="feature-text">POS Integration</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🍃</div>
+                    <p class="feature-text">Perishability Measure</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <p class="feature-text">Quality Certified</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-order Section -->
+    <section class="preorder" id="preorder">
+        <h2>Reserve FicioPrep</h2>
+        <p class="preorder-subtitle">Be among the first to revolutionize your kitchen</p>
+        <form class="preorder-form" action="https://formspree.io/f/mrboogea" method="POST">
+            <div class="form-group">
+                <input type="text" name="restaurant" id="restaurant" placeholder="Restaurant Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
+            </div>
+            <button type="submit" class="submit-btn">Reserve Now</button>
+        </form>
+        <div class="pricing-info">
+            <p>Starting at</p>
+            <p class="price">$15,000</p>
+            <p>22 weeks payback period</p>
+        </div>
+        <div class="schedule-section">
+            <div class="divider"></div>
+            <h3>Want to discuss your requirements?</h3>
+            <p>Schedule a 30-minute consultation with our team</p>
+            <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" class="schedule-btn">
+                Schedule a Call
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#problem">Food Waste</a>
+                <a href="#solution">Solution</a>
+                <a href="#product">Product</a>
+                <a href="mailto:founders@ficio.org">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Ficio. Autonomous Kitchens for Everyone.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll to pre-order section
+        function scrollToPreorder() {
+            document.getElementById('preorder').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.benefit, .feature, .waste-stat');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Animate circular charts when they come into view
+            const circles = document.querySelectorAll('.circle');
+            const circleObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fillCircle 2s ease forwards';
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            circles.forEach(circle => {
+                circleObserver.observe(circle);
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
