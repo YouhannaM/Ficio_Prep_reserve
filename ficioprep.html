@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficio Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: white;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 120px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        header p {
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px;
+            margin-top: 80px;
+        }
+
+        .product {
+            padding: 40px;
+            border: 1px solid #000;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            font-weight: 300;
+        }
+
+        .product h2 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .product .subtitle {
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0.7;
+        }
+
+        .product-description {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
+
+        .product-features {
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 2;
+            border-top: 1px solid #000;
+            padding-top: 24px;
+        }
+
+        .product-features li {
+            list-style: none;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .product-features li:before {
+            content: "—";
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .products {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FICIO PRODUCTS</h1>
+            <p>Three ways to transform your kitchen</p>
+        </header>
+
+        <div class="products">
+            <!-- Product 1: RaaS -->
+            <div class="product">
+                <div>
+                    <div class="product-icon">🤖</div>
+                    <div class="subtitle">Robotics as a Service</div>
+                    <h2>FicioPrep RaaS</h2>
+                    <div class="product-description">
+                        Complete prep automation delivered as a service. Our AI-powered robot handles ingredient prep, quality control, and waste elimination. You pay monthly. We handle maintenance, updates, and optimization.
+                    </div>
+                </div>
+                <ul class="product-features">
+                    <li>Autonomous prep system</li>
+                    <li>Real-time quality control</li>
+                    <li>Waste tracking & insights</li>
+                    <li>24/7 monitoring & support</li>
+                </ul>
+            </div>
+
+            <!-- Product 2: SaaS -->
+            <div class="product">
+                <div>
+                    <div class="product-icon">💾</div>
+                    <div class="subtitle">Software as a Service</div>
+                    <h2>Ingredient Intelligence</h2>
+                    <div class="product-description">
+                        The nervous system of your kitchen. Our platform captures ingredient data, predicts waste, optimizes ordering, integrates with POS systems, and learns your customers' preferences over time.
+                    </div>
+                </div>
+                <ul class="product-features">
+                    <li>Computer vision quality checks</li>
+                    <li>POS system integration</li>
+                    <li>Demand forecasting</li>
+                    <li>Waste prediction</li>
+                    <li>Customer preference tracking</li>
+                </ul>
+            </div>
+
+            <!-- Product 3: Hardware -->
+            <div class="product">
+                <div>
+                    <div class="product-icon">📹</div>
+                    <div class="subtitle">Hardware Entry Point</div>
+                    <h2>Ingredient Sorter</h2>
+                    <div class="product-description">
+                        Start with ingredient quality control before committing to full automation. AI-powered cameras and sensors identify damaged, diseased, or substandard ingredients at receiving. Upgrade to full prep later.
+                    </div>
+                </div>
+                <ul class="product-features">
+                    <li>AI-powered cameras</li>
+                    <li>Real-time damage detection</li>
+                    <li>Quality certification</li>
+                    <li>Standalone or integrated</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
