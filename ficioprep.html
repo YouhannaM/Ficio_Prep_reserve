@@ -1,189 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficio Products</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficio Products — Three Ways to Transform Your Kitchen</title>
+  <meta name="description" content="FicioPrep RaaS, Ingredient Intelligence SaaS, and Ingredient Sorter — the full Ficio product suite for autonomous kitchen operations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,300&display=swap" rel="stylesheet">
+  <style>
 
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background: white;
-            color: #000;
-            line-height: 1.6;
-        }
+    /* =============================================
+       RESET & CUSTOM PROPERTIES
+    ============================================= */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 40px;
-        }
+    :root {
+      --black:  #000000;
+      --white:  #ffffff;
+      --g900:   #0a0a0a;
+      --g800:   #1a1a1a;
+      --g700:   #333333;
+      --g500:   #666666;
+      --g400:   #888888;
+      --g300:   #aaaaaa;
+      --g200:   #cccccc;
+      --g100:   #e8e8e8;
+      --g50:    #f5f5f5;
+      --g25:    #fafafa;
 
-        header {
-            text-align: center;
-            margin-bottom: 120px;
-            border-bottom: 1px solid #000;
-            padding-bottom: 40px;
-        }
+      --font:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-w:  1280px;
+      --pad-x:  64px;
+      --border: 1px solid var(--g100);
+      --ease:   cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-        header h1 {
-            font-size: 48px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
+    html { scroll-behavior: smooth; }
 
-        header p {
-            font-size: 16px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        .products {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 60px;
-            margin-top: 80px;
-        }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
-        .product {
-            padding: 40px;
-            border: 1px solid #000;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 999;
+      padding: 0 var(--pad-x);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: var(--border);
+    }
 
-        .product-icon {
-            font-size: 48px;
-            margin-bottom: 24px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            font-weight: 300;
-        }
+    .nav__logo {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: var(--black);
+    }
 
-        .product h2 {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            letter-spacing: 0.5px;
-        }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
 
-        .product .subtitle {
-            font-size: 12px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            opacity: 0.7;
-        }
+    .nav__links a {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--g500);
+      transition: color 0.2s;
+    }
 
-        .product-description {
-            font-size: 14px;
-            font-weight: 300;
-            line-height: 1.8;
-            margin-bottom: 32px;
-            flex-grow: 1;
-        }
+    .nav__links a:hover { color: var(--black); }
 
-        .product-features {
-            font-size: 13px;
-            font-weight: 300;
-            line-height: 2;
-            border-top: 1px solid #000;
-            padding-top: 24px;
-        }
+    .nav__cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--black);
+      padding: 9px 22px;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
 
-        .product-features li {
-            list-style: none;
-            position: relative;
-            padding-left: 16px;
-        }
+    .nav__cta:hover {
+      background: var(--g700);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
 
-        .product-features li:before {
-            content: "—";
-            position: absolute;
-            left: 0;
-        }
+    /* =============================================
+       PAGE HEADER
+    ============================================= */
+    .page-header {
+      padding: 140px var(--pad-x) 80px;
+      background: var(--black);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
 
-        @media (max-width: 1024px) {
-            .products {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-        }
-    </style>
+    /* Dot grid texture */
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .page-header__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 40px;
+      transition: color 0.2s;
+    }
+
+    .page-header__back:hover { color: var(--white); }
+
+    .page-header__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 24px;
+    }
+
+    .page-header__label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    .page-header__title {
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 300;
+      line-height: 0.97;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .page-header__title .outline {
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.6);
+      color: transparent;
+    }
+
+    .page-header__sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    /* =============================================
+       PRODUCT SECTION
+    ============================================= */
+    .products {
+      padding: 0 var(--pad-x) 120px;
+      background: var(--white);
+    }
+
+    .products__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    /* Product block: alternating layout */
+    .product-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: var(--border);
+      transition: background 0.3s;
+    }
+
+    .product-block:first-child { border-top: var(--border); }
+    .product-block:hover { background: var(--g25); }
+
+    /* Odd products: info left, features right */
+    /* Even products: features left, info right */
+    .product-block--reverse .product-block__info { order: 2; }
+    .product-block--reverse .product-block__features { order: 1; border-left: 0; border-right: var(--border); }
+
+    .product-block__info {
+      padding: 72px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .product-block__features {
+      padding: 72px 60px;
+      border-left: var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .product-block__type {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+      margin-bottom: 20px;
+    }
+
+    .product-block__type::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--g300);
+    }
+
+    .product-block__name {
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .product-block__desc {
+      font-size: 15.5px;
+      color: var(--g500);
+      line-height: 1.8;
+      flex-grow: 1;
+    }
+
+    .product-block__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--black);
+      border: var(--border);
+      padding: 7px 14px;
+      border-radius: 100px;
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    .product-block__feat-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g300);
+      margin-bottom: 24px;
+    }
+
+    .product-block__feat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .product-block__feat-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: var(--border);
+      font-size: 14.5px;
+      color: var(--black);
+      font-weight: 400;
+    }
+
+    .product-block__feat-item::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--black);
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       COMPARISON TABLE
+    ============================================= */
+    .compare {
+      padding: 100px var(--pad-x);
+      background: var(--g50);
+      border-top: var(--border);
+    }
+
+    .compare__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .compare__header {
+      margin-bottom: 56px;
+    }
+
+    .compare__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+      margin-bottom: 16px;
+    }
+
+    .compare__label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--g300);
+    }
+
+    .compare__title {
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .compare__table {
+      width: 100%;
+      border-collapse: collapse;
+      border: var(--border);
+      background: var(--white);
+    }
+
+    .compare__table th,
+    .compare__table td {
+      padding: 18px 24px;
+      font-size: 13.5px;
+      text-align: left;
+      border-bottom: var(--border);
+      border-right: var(--border);
+    }
+
+    .compare__table th:last-child,
+    .compare__table td:last-child { border-right: 0; }
+
+    .compare__table tr:last-child td { border-bottom: 0; }
+
+    .compare__table thead th {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--g400);
+      background: var(--g25);
+    }
+
+    .compare__table thead th:first-child {
+      color: var(--black);
+      background: var(--g25);
+    }
+
+    .compare__table tbody td:first-child {
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .compare__table tbody td {
+      color: var(--g500);
+    }
+
+    .check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--black);
+      color: var(--white);
+      font-size: 11px;
+    }
+
+    .dash {
+      color: var(--g200);
+    }
+
+    /* =============================================
+       CTA STRIP
+    ============================================= */
+    .cta-strip {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px var(--pad-x);
+    }
+
+    .cta-strip__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .cta-strip__text {
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+
+    .cta-strip__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font);
+      font-size: 14.5px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .btn--light {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .btn--light:hover {
+      background: var(--g50);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+    }
+
+    .btn--ghost:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.35);
+      padding: 40px var(--pad-x);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer__logo {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.04em;
+    }
+
+    .footer__nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer__nav a {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+
+    .footer__nav a:hover { color: var(--white); }
+
+    .footer__copy {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease),
+                  transform 0.75s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 1100px) {
+      :root { --pad-x: 40px; }
+
+      .product-block {
+        grid-template-columns: 1fr;
+      }
+
+      .product-block--reverse .product-block__info { order: 0; }
+      .product-block--reverse .product-block__features { order: 0; border-right: 0; border-left: 0; }
+
+      .product-block__features {
+        border-left: 0;
+        border-top: var(--border);
+      }
+
+      .product-block__info { padding: 48px 40px; }
+      .product-block__features { padding: 40px 40px 56px; }
+
+      .cta-strip__inner { flex-direction: column; gap: 28px; text-align: center; }
+      .cta-strip__actions { justify-content: center; }
+
+      .footer__inner { flex-direction: column; text-align: center; }
+      .footer__nav { flex-wrap: wrap; justify-content: center; }
+
+      .compare__table th,
+      .compare__table td { padding: 14px 16px; font-size: 12.5px; }
+    }
+
+    @media (max-width: 640px) {
+      :root { --pad-x: 24px; }
+
+      .nav { padding: 0 var(--pad-x); }
+      .nav__links { display: none; }
+
+      .page-header { padding: 110px var(--pad-x) 60px; }
+
+      .product-block__info,
+      .product-block__features { padding: 40px 24px; }
+
+      .compare { padding: 64px var(--pad-x); }
+
+      .compare__table { font-size: 12px; }
+      .compare__table th,
+      .compare__table td { padding: 12px 12px; }
+
+      .cta-strip { padding: 60px var(--pad-x); }
+
+      .cta-strip__actions { flex-direction: column; width: 100%; }
+      .btn { justify-content: center; }
+    }
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>FICIO PRODUCTS</h1>
-            <p>Three ways to transform your kitchen</p>
-        </header>
 
-        <div class="products">
-            <!-- Product 1: RaaS -->
-            <div class="product">
-                <div>
-                    <div class="product-icon">🤖</div>
-                    <div class="subtitle">Robotics as a Service</div>
-                    <h2>FicioPrep RaaS</h2>
-                    <div class="product-description">
-                        Complete prep automation delivered as a service. Our AI-powered robot handles ingredient prep, quality control, and waste elimination. You pay monthly. We handle maintenance, updates, and optimization.
-                    </div>
-                </div>
-                <ul class="product-features">
-                    <li>Autonomous prep system</li>
-                    <li>Real-time quality control</li>
-                    <li>Waste tracking & insights</li>
-                    <li>24/7 monitoring & support</li>
-                </ul>
-            </div>
+  <!-- ============================================
+       NAVIGATION
+  ============================================= -->
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">Ficio</a>
+    <ul class="nav__links">
+      <li><a href="index.html#problem">Food Waste</a></li>
+      <li><a href="index.html#solution">Solution</a></li>
+      <li><a href="index.html#product">Product</a></li>
+    </ul>
+    <a href="index.html#contact" class="nav__cta">Get In Touch</a>
+  </nav>
 
-            <!-- Product 2: SaaS -->
-            <div class="product">
-                <div>
-                    <div class="product-icon">💾</div>
-                    <div class="subtitle">Software as a Service</div>
-                    <h2>Ingredient Intelligence</h2>
-                    <div class="product-description">
-                        The nervous system of your kitchen. Our platform captures ingredient data, predicts waste, optimizes ordering, integrates with POS systems, and learns your customers' preferences over time.
-                    </div>
-                </div>
-                <ul class="product-features">
-                    <li>Computer vision quality checks</li>
-                    <li>POS system integration</li>
-                    <li>Demand forecasting</li>
-                    <li>Waste prediction</li>
-                    <li>Customer preference tracking</li>
-                </ul>
-            </div>
 
-            <!-- Product 3: Hardware -->
-            <div class="product">
-                <div>
-                    <div class="product-icon">📹</div>
-                    <div class="subtitle">Hardware Entry Point</div>
-                    <h2>Ingredient Sorter</h2>
-                    <div class="product-description">
-                        Start with ingredient quality control before committing to full automation. AI-powered cameras and sensors identify damaged, diseased, or substandard ingredients at receiving. Upgrade to full prep later.
-                    </div>
-                </div>
-                <ul class="product-features">
-                    <li>AI-powered cameras</li>
-                    <li>Real-time damage detection</li>
-                    <li>Quality certification</li>
-                    <li>Standalone or integrated</li>
-                </ul>
-            </div>
-        </div>
+  <!-- ============================================
+       PAGE HEADER
+  ============================================= -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <a href="index.html" class="page-header__back">← Back to Ficio</a>
+      <div class="page-header__label">Product Suite</div>
+      <h1 class="page-header__title">
+        Three ways<br>to <span class="outline">transform</span><br>your kitchen.
+      </h1>
+      <p class="page-header__sub">
+        From full robotics automation to intelligent software and hardware entry points — Ficio meets you where you are and takes you where you need to be.
+      </p>
     </div>
+  </header>
+
+
+  <!-- ============================================
+       PRODUCTS
+  ============================================= -->
+  <section class="products">
+    <div class="products__inner">
+
+
+      <!-- Product 1: RaaS -->
+      <div class="product-block reveal">
+
+        <div class="product-block__info">
+          <div>
+            <div class="product-block__type">Robotics as a Service</div>
+            <h2 class="product-block__name">FicioPrep<br>RaaS</h2>
+            <p class="product-block__desc">
+              Complete prep automation delivered as a service. Our AI-powered system handles ingredient prep, quality control, and waste elimination end-to-end. You pay monthly — we handle maintenance, updates, and continuous optimization so your kitchen runs at peak performance.
+            </p>
+          </div>
+          <div class="product-block__pill">01 — Full Automation</div>
+        </div>
+
+        <div class="product-block__features">
+          <div class="product-block__feat-label">What's included</div>
+          <ul class="product-block__feat-list">
+            <li class="product-block__feat-item">Autonomous prep system</li>
+            <li class="product-block__feat-item">Real-time quality control</li>
+            <li class="product-block__feat-item">Waste tracking &amp; insights</li>
+            <li class="product-block__feat-item">24/7 monitoring &amp; support</li>
+            <li class="product-block__feat-item">Continuous AI model updates</li>
+            <li class="product-block__feat-item">Monthly performance reporting</li>
+          </ul>
+        </div>
+
+      </div>
+
+
+      <!-- Product 2: SaaS -->
+      <div class="product-block product-block--reverse reveal reveal-d1">
+
+        <div class="product-block__info">
+          <div>
+            <div class="product-block__type">Software as a Service</div>
+            <h2 class="product-block__name">Ingredient<br>Intelligence</h2>
+            <p class="product-block__desc">
+              The nervous system of your kitchen. Our platform captures every ingredient data point, predicts waste before it happens, optimizes ordering patterns, integrates with POS systems, and learns your customers' preferences over time — getting smarter with every dish.
+            </p>
+          </div>
+          <div class="product-block__pill">02 — Software Layer</div>
+        </div>
+
+        <div class="product-block__features">
+          <div class="product-block__feat-label">What's included</div>
+          <ul class="product-block__feat-list">
+            <li class="product-block__feat-item">Computer vision quality checks</li>
+            <li class="product-block__feat-item">POS system integration</li>
+            <li class="product-block__feat-item">Demand forecasting</li>
+            <li class="product-block__feat-item">Waste prediction engine</li>
+            <li class="product-block__feat-item">Customer preference tracking</li>
+            <li class="product-block__feat-item">Inventory optimization</li>
+          </ul>
+        </div>
+
+      </div>
+
+
+      <!-- Product 3: Hardware -->
+      <div class="product-block reveal reveal-d2">
+
+        <div class="product-block__info">
+          <div>
+            <div class="product-block__type">Hardware Entry Point</div>
+            <h2 class="product-block__name">Ingredient<br>Sorter</h2>
+            <p class="product-block__desc">
+              Start your automation journey with ingredient quality control at the point of receiving — before committing to full automation. AI-powered cameras and sensors identify damaged, diseased, or substandard ingredients the moment they arrive. Upgrade to full prep automation when you're ready.
+            </p>
+          </div>
+          <div class="product-block__pill">03 — Hardware Entry</div>
+        </div>
+
+        <div class="product-block__features">
+          <div class="product-block__feat-label">What's included</div>
+          <ul class="product-block__feat-list">
+            <li class="product-block__feat-item">AI-powered camera array</li>
+            <li class="product-block__feat-item">Real-time damage detection</li>
+            <li class="product-block__feat-item">Quality certification output</li>
+            <li class="product-block__feat-item">Standalone or integrated mode</li>
+            <li class="product-block__feat-item">Cloud dashboard &amp; analytics</li>
+          </ul>
+        </div>
+
+      </div>
+
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       COMPARISON TABLE
+  ============================================= -->
+  <section class="compare">
+    <div class="compare__inner">
+      <div class="compare__header">
+        <div class="compare__label">Compare</div>
+        <h2 class="compare__title reveal">Choose the right<br>tier for your kitchen</h2>
+      </div>
+
+      <table class="compare__table reveal">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Ingredient Sorter</th>
+            <th>Ingredient Intelligence</th>
+            <th>FicioPrep RaaS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ingredient quality control</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Computer vision AI</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>POS integration</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Demand forecasting</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Waste prediction</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Autonomous prep robot</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>24/7 monitoring &amp; support</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Full prep automation</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       CTA STRIP
+  ============================================= -->
+  <section class="cta-strip">
+    <div class="cta-strip__inner">
+      <div class="cta-strip__text">
+        Ready to transform<br>your kitchen?
+      </div>
+      <div class="cta-strip__actions">
+        <a href="index.html#contact" class="btn btn--light">Reserve FicioPrep →</a>
+        <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="btn btn--ghost">Schedule Demo ↗</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">Ficio</div>
+      <ul class="footer__nav">
+        <li><a href="index.html#problem">Food Waste</a></li>
+        <li><a href="index.html#solution">Solution</a></li>
+        <li><a href="index.html#product">Product</a></li>
+        <li><a href="mailto:founders@ficio.org">Contact</a></li>
+      </ul>
+      <div class="footer__copy">© 2025 Ficio. Autonomous Kitchens for Everyone.</div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+
+    // ─── Scroll reveal ─────────────────────────────────────────────────
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  </script>
 </body>
 </html>
