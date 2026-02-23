@@ -1,892 +1,1399 @@
-# Ficio_Prep_reserve
-Ficio_Prep_reserve
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficio - Autonomous Kitchens</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            background: #ffffff;
-            color: #000000;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 20px 40px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 300;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #000;
-        }
-
-        .preorder-nav-btn {
-            background: #000;
-            color: #fff;
-            padding: 10px 24px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .preorder-nav-btn:hover {
-            background: #333;
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
-            padding: 0 40px;
-            margin-top: 70px;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 200;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
-        }
-
-        .tagline {
-            font-size: 24px;
-            color: #666;
-            margin-bottom: 40px;
-            font-weight: 300;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        .hero-cta {
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-
-        .cta-button {
-            background: #000;
-            color: #fff;
-            padding: 18px 48px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        .cta-button:hover {
-            background: #333;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 100px 40px;
-            background: #f9f9f9;
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 60px;
-            text-align: center;
-        }
-
-        .stat {
-            animation: fadeIn 1s ease;
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 200;
-            color: #000;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 16px;
-            color: #666;
-            font-weight: 300;
-        }
-
-        /* Problem Section */
-        .problem {
-            padding: 100px 40px;
-            background: #fff;
-        }
-
-        /* Food Waste Infographic Section */
-        .food-waste {
-            padding: 100px 40px;
-            background: #fff;
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: #666;
-            text-align: center;
-            margin-bottom: 60px;
-            font-weight: 300;
-        }
-
-        .infographic {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 60px;
-            max-width: 900px;
-            margin: 0 auto 60px;
-        }
-
-        .waste-stat {
-            text-align: center;
-        }
-
-        .waste-circle {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-
-        .circular-chart {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-
-        .circle-bg {
-            fill: none;
-            stroke: #f0f0f0;
-            stroke-width: 8;
-        }
-
-        .circle {
-            fill: none;
-            stroke: #000;
-            stroke-width: 8;
-            stroke-linecap: round;
-            stroke-dasharray: 565;
-            transition: stroke-dashoffset 2s ease;
-            animation: fillCircle 2s ease forwards;
-        }
-
-        .percentage {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 42px;
-            font-weight: 200;
-            color: #000;
-        }
-
-        .waste-stat h3 {
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: #000;
-        }
-
-        .waste-stat p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .waste-impact {
-            text-align: center;
-            padding: 40px;
-            background: #f5f5f5;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .impact-text {
-            font-size: 20px;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .impact-text strong {
-            color: #000;
-            font-weight: 500;
-        }
-
-        @keyframes fillCircle {
-            from {
-                stroke-dashoffset: 565;
-            }
-        }
-
-        .section-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 48px;
-            font-weight: 200;
-            text-align: center;
-            margin-bottom: 60px;
-            letter-spacing: -1px;
-        }
-
-        /* Solution Section */
-        .solution {
-            padding: 100px 40px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-        }
-
-        .solution-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .solution-description {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 50px;
-            line-height: 1.8;
-        }
-
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .benefit {
-            background: #fff;
-            padding: 30px;
-            border-radius: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-
-        .benefit:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .benefit-number {
-            font-size: 36px;
-            font-weight: 200;
-            margin-bottom: 10px;
-        }
-
-        .benefit-text {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Product Section */
-        .product {
-            padding: 100px 40px;
-            background: #fff;
-        }
-
-        .product-intro {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        .product-name {
-            font-size: 36px;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        .product-description {
-            font-size: 18px;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        .learn-more-btn {
-            display: inline-block;
-            margin: 30px 0;
-            padding: 15px 40px;
-            background: #000;
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .learn-more-btn:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .feature-text {
-            font-size: 14px;
-            color: #333;
-        }
-
-        /* Pre-order Section */
-        .preorder {
-            padding: 120px 40px;
-            background: #000;
-            color: #fff;
-            text-align: center;
-        }
-
-        .preorder h2 {
-            font-size: 48px;
-            font-weight: 200;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .preorder-subtitle {
-            font-size: 20px;
-            color: #999;
-            margin-bottom: 40px;
-        }
-
-        .preorder-form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #666;
-            background: #1a1a1a;
-        }
-
-        .form-group input::placeholder {
-            color: #666;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 18px;
-            background: #fff;
-            color: #000;
-            border: none;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-        }
-
-        .pricing-info {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .pricing-info .price {
-            font-size: 24px;
-            color: #fff;
-            font-weight: 300;
-        }
-
-        .schedule-section {
-            margin-top: 60px;
-            padding-top: 40px;
-        }
-
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: #333;
-            margin: 0 auto 40px;
-        }
-
-        .schedule-section h3 {
-            font-size: 24px;
-            font-weight: 300;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .schedule-section p {
-            font-size: 16px;
-            color: #999;
-            margin-bottom: 30px;
-        }
-
-        .schedule-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .schedule-btn:hover {
-            background: #fff;
-            color: #000;
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            background: #111;
-            color: #666;
-            padding: 60px 40px;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #fff;
-        }
-
-        .copyright {
-            font-size: 12px;
-            margin-top: 30px;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 48px;
-            }
-
-            .tagline {
-                font-size: 18px;
-            }
-
-            .benefits {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .section-title {
-                font-size: 36px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficio — Autonomous Kitchens</title>
+  <meta name="description" content="Ficio uses embodied AI to eliminate food waste, cut labor costs by 80%, and ensure consistent quality — transforming restaurant kitchens for the future.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,300&display=swap" rel="stylesheet">
+  <style>
+
+    /* =============================================
+       RESET & CUSTOM PROPERTIES
+    ============================================= */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black:     #000000;
+      --white:     #ffffff;
+      --g900:      #0a0a0a;
+      --g800:      #1a1a1a;
+      --g700:      #333333;
+      --g500:      #666666;
+      --g400:      #888888;
+      --g300:      #aaaaaa;
+      --g200:      #cccccc;
+      --g100:      #e8e8e8;
+      --g50:       #f5f5f5;
+      --g25:       #fafafa;
+
+      --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-w:     1280px;
+      --pad-x:     64px;
+      --border:    1px solid var(--g100);
+      --radius:    0px;
+
+      --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* =============================================
+       TYPOGRAPHY SYSTEM
+    ============================================= */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+    }
+
+    .label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 999;
+      padding: 0 var(--pad-x);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s var(--ease-out),
+                  border-color 0.4s var(--ease-out);
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.is-scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom-color: var(--g100);
+    }
+
+    .nav__logo {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: var(--black);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav__links a {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--g500);
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+
+    .nav__links a:hover { color: var(--black); }
+
+    .nav__cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--black);
+      padding: 9px 22px;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav__cta:hover {
+      background: var(--g700);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 130px var(--pad-x) 70px;
+      overflow: hidden;
+    }
+
+    /* Dot grid texture */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Fade-out at bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 180px;
+      background: linear-gradient(to bottom, transparent, var(--white));
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero__top {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g500);
+      margin-bottom: 44px;
+      padding: 7px 14px 7px 10px;
+      border: var(--border);
+      border-radius: 100px;
+      background: rgba(255,255,255,0.8);
+    }
+
+    .hero__badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--black);
+      flex-shrink: 0;
+      animation: pulse 2.5s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero__headline {
+      font-size: clamp(60px, 8.5vw, 118px);
+      font-weight: 300;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      color: var(--black);
+      margin-bottom: 0;
+    }
+
+    .hero__headline .outline {
+      -webkit-text-stroke: 1.5px var(--black);
+      color: transparent;
+    }
+
+    .hero__bottom {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      padding-top: 56px;
+      border-top: var(--border);
+    }
+
+    .hero__sub {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--g500);
+      line-height: 1.75;
+      max-width: 420px;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font);
+      font-size: 14.5px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.22s var(--ease-out);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .btn--dark {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .btn--dark:hover {
+      background: var(--g700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--g200);
+    }
+
+    .btn--outline:hover {
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       TICKER / MARQUEE
+    ============================================= */
+    .ticker {
+      background: var(--black);
+      color: var(--white);
+      padding: 15px 0;
+      overflow: hidden;
+      border-top: 1px solid var(--g900);
+    }
+
+    .ticker__track {
+      display: flex;
+      width: max-content;
+      animation: marquee 36s linear infinite;
+    }
+
+    .ticker__track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ticker__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      padding-right: 64px;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--g300);
+    }
+
+    .ticker__item strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .ticker__sep {
+      width: 3px;
+      height: 3px;
+      background: var(--g500);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       STATS SECTION
+    ============================================= */
+    .stats {
+      background: var(--white);
+      border-bottom: var(--border);
+    }
+
+    .stats__grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stats__cell {
+      padding: 72px 56px;
+      border-right: var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .stats__cell:last-child { border-right: 0; }
+
+    .stats__cell::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--black);
+      transition: width 0.5s var(--ease-out);
+    }
+
+    .stats__cell:hover::after { width: 100%; }
+
+    .stats__index {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--g300);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .stats__num {
+      font-size: clamp(48px, 5vw, 76px);
+      font-weight: 200;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .stats__label {
+      font-size: 14px;
+      color: var(--g500);
+      font-weight: 400;
+    }
+
+    /* =============================================
+       SECTION SHARED
+    ============================================= */
+    .section {
+      padding: 120px var(--pad-x);
+    }
+
+    .section__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section__header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 72px;
+      padding-bottom: 64px;
+      border-bottom: var(--border);
+    }
+
+    .section__title {
+      font-size: clamp(38px, 4vw, 58px);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .section__desc {
+      font-size: 16.5px;
+      color: var(--g500);
+      line-height: 1.8;
+      padding-top: 8px;
+    }
+
+    /* =============================================
+       PROBLEM SECTION
+    ============================================= */
+    .problem { background: var(--white); }
+
+    .waste-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--g100);
+      outline: 1px solid var(--g100);
+      margin-bottom: 1px;
+    }
+
+    .waste-card {
+      background: var(--white);
+      padding: 48px 44px;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .waste-card:hover { background: var(--g25); }
+
+    .waste-card__num {
+      font-size: clamp(52px, 5.5vw, 80px);
+      font-weight: 200;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .waste-card__title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+
+    .waste-card__desc {
+      font-size: 13.5px;
+      color: var(--g500);
+      line-height: 1.7;
+    }
+
+    .problem__impact {
+      background: var(--black);
+      color: var(--white);
+      padding: 64px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      outline: 1px solid var(--g100);
+    }
+
+    .impact__statement {
+      font-size: clamp(22px, 2.5vw, 34px);
+      font-weight: 300;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+    }
+
+    .impact__statement strong {
+      font-weight: 600;
+    }
+
+    .impact__meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .impact__figure {
+      font-size: 44px;
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .impact__caption {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g500);
+    }
+
+    /* =============================================
+       SOLUTION SECTION
+    ============================================= */
+    .solution {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .solution .label {
+      color: var(--g500);
+    }
+
+    .solution .label::before {
+      background: var(--g500);
+    }
+
+    .solution .section__header {
+      border-bottom-color: rgba(255,255,255,0.08);
+    }
+
+    .solution .section__title { color: var(--white); }
+
+    .solution .section__desc { color: rgba(255,255,255,0.5); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      outline: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .benefit-card {
+      background: var(--black);
+      padding: 52px 44px;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .benefit-card:hover { background: var(--g900); }
+
+    .benefit-card__idx {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+      margin-bottom: 28px;
+    }
+
+    .benefit-card__value {
+      font-size: clamp(44px, 4.5vw, 66px);
+      font-weight: 200;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .benefit-card__label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+    }
+
+    /* =============================================
+       PRODUCT SECTION
+    ============================================= */
+    .product-section { background: var(--white); }
+
+    .product-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+
+    .product-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 28px;
+    }
+
+    .product-desc {
+      font-size: 16.5px;
+      color: var(--g500);
+      line-height: 1.8;
+      text-align: right;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--g100);
+      outline: 1px solid var(--g100);
+    }
+
+    .feature-card {
+      background: var(--white);
+      padding: 40px;
+      transition: background 0.3s;
+    }
+
+    .feature-card:hover { background: var(--g25); }
+
+    .feature-card__icon {
+      width: 38px;
+      height: 38px;
+      background: var(--black);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-bottom: 24px;
+      filter: grayscale(1);
+    }
+
+    .feature-card__name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+
+    .feature-card__desc {
+      font-size: 13px;
+      color: var(--g500);
+      line-height: 1.7;
+    }
+
+    .product-cta-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 48px;
+    }
+
+    /* =============================================
+       CONTACT / FORM SECTION
+    ============================================= */
+    .contact {
+      background: var(--g25);
+      border-top: var(--border);
+    }
+
+    .contact__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      align-items: start;
+    }
+
+    .contact__left {
+      position: sticky;
+      top: 88px;
+    }
+
+    .contact__title {
+      font-size: clamp(38px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      margin-top: 20px;
+    }
+
+    .contact__sub {
+      font-size: 16px;
+      color: var(--g500);
+      line-height: 1.8;
+      margin-bottom: 44px;
+    }
+
+    .contact__info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact__info-item label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g300);
+      margin-bottom: 4px;
+    }
+
+    .contact__info-item a,
+    .contact__info-item span {
+      font-size: 15px;
+      color: var(--black);
+      transition: color 0.2s;
+    }
+
+    .contact__info-item a:hover { color: var(--g500); }
+
+    /* Form panel */
+    .form-panel {
+      background: var(--white);
+      border: var(--border);
+      padding: 52px;
+    }
+
+    .form-panel__title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .form-field--full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g400);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 13px 15px;
+      background: var(--g25);
+      border: 1px solid var(--g100);
+      font-size: 14.5px;
+      font-family: var(--font);
+      color: var(--black);
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-input:focus {
+      background: var(--white);
+      border-color: var(--black);
+    }
+
+    .form-input::placeholder { color: var(--g300); }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 14.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.01em;
+      margin-top: 4px;
+      border-radius: 0;
+    }
+
+    .form-submit:hover {
+      background: var(--g700);
+      transform: translateY(-1px);
+    }
+
+    .form-divider {
+      margin-top: 36px;
+      padding-top: 36px;
+      border-top: var(--border);
+      text-align: center;
+    }
+
+    .form-divider__text {
+      font-size: 13px;
+      color: var(--g400);
+      margin-bottom: 12px;
+    }
+
+    .form-divider__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black);
+      border-bottom: 1px solid var(--g200);
+      padding-bottom: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .form-divider__link:hover {
+      color: var(--g500);
+      border-color: var(--g400);
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.35);
+      padding: 40px var(--pad-x);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer__logo {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.04em;
+    }
+
+    .footer__nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer__nav a {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+
+    .footer__nav a:hover { color: var(--white); }
+
+    .footer__copy {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* =============================================
+       SCROLL REVEAL ANIMATION
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease-out),
+                  transform 0.75s var(--ease-out);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 1100px) {
+      :root { --pad-x: 40px; }
+
+      .hero__bottom,
+      .section__header,
+      .product-header,
+      .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero__actions { justify-content: flex-start; }
+
+      .stats__grid,
+      .waste-grid,
+      .benefits-grid,
+      .features-grid {
+        grid-template-columns: 1fr;
+        background: transparent;
+        outline: none;
+        gap: 0;
+      }
+
+      .stats__cell  { border-right: 0; border-bottom: var(--border); }
+      .waste-card   { border-bottom: 1px solid var(--g100); }
+      .benefit-card { border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .feature-card { border-bottom: 1px solid var(--g100); }
+
+      .product-right { align-items: flex-start; }
+      .product-desc  { text-align: left; }
+
+      .problem__impact { flex-direction: column; gap: 24px; }
+      .impact__meta { text-align: left; }
+
+      .contact__left { position: static; }
+
+      .footer__inner { flex-direction: column; text-align: center; }
+      .footer__nav   { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      :root { --pad-x: 24px; }
+
+      .nav { padding: 0 var(--pad-x); }
+      .nav__links { display: none; }
+
+      .hero { padding: 110px var(--pad-x) 60px; }
+
+      .form-row { grid-template-columns: 1fr; }
+      .form-panel { padding: 32px; }
+
+      .section { padding: 80px var(--pad-x); }
+
+      .stats__cell { padding: 48px 32px; }
+      .waste-card,
+      .benefit-card,
+      .feature-card { padding: 36px 28px; }
+    }
+
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">Ficio</div>
-            <div class="nav-links">
-                <a href="#problem">Food Waste</a>
-                <a href="#solution">Solution</a>
-                <a href="#product">Product</a>
-                <button class="preorder-nav-btn" onclick="scrollToPreorder()">Pre-Order</button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Ficio</h1>
-            <p class="tagline">Autonomous Kitchens for the Future of Food</p>
-            <div class="hero-cta">
-                <a href="#preorder" class="cta-button">Reserve FicioPrep</a>
-            </div>
-        </div>
-    </section>
+  <!-- ============================================
+       NAVIGATION
+  ============================================= -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">Ficio</a>
+    <ul class="nav__links">
+      <li><a href="#problem">Food Waste</a></li>
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#product">Product</a></li>
+    </ul>
+    <a href="#contact" class="nav__cta">Get In Touch</a>
+  </nav>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat">
-                <div class="stat-number">80%</div>
-                <div class="stat-label">Labor Efficiency Gain</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">67%</div>
-                <div class="stat-label">Faster Service Time</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">200%</div>
-                <div class="stat-label">Quality Improvement</div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Food Waste Infographic Section -->
-    <section class="food-waste" id="problem">
-        <div class="section-container">
-            <h2 class="section-title">The Food Waste Challenge</h2>
-            <p class="section-subtitle">Where restaurants lose money and resources</p>
-            <div class="infographic">
-                <div class="waste-stat">
-                    <div class="waste-circle">
-                        <svg viewBox="0 0 200 200" class="circular-chart">
-                            <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
-                            <circle class="circle" cx="100" cy="100" r="90" style="stroke-dashoffset: 339"></circle>
-                        </svg>
-                        <div class="percentage">40%</div>
-                    </div>
-                    <h3>Total Food Waste</h3>
-                    <p>of all food in restaurants ends up as waste</p>
-                </div>
-                <div class="waste-stat">
-                    <div class="waste-circle">
-                        <svg viewBox="0 0 200 200" class="circular-chart">
-                            <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
-                            <circle class="circle" cx="100" cy="100" r="90" style="stroke-dashoffset: 424"></circle>
-                        </svg>
-                        <div class="percentage">25%</div>
-                    </div>
-                    <h3>Ingredient Prep Waste</h3>
-                    <p>lost during preparation and processing</p>
-                </div>
-                <div class="waste-stat">
-                    <div class="waste-circle">
-                        <svg viewBox="0 0 200 200" class="circular-chart">
-                            <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
-                            <circle class="circle" cx="100" cy="100" r="90" style="stroke-dashoffset: 396"></circle>
-                        </svg>
-                        <div class="percentage">30%</div>
-                    </div>
-                    <h3>Inventory Spoilage</h3>
-                    <p>from poor inventory management</p>
-                </div>
-            </div>
-            <div class="waste-impact">
-                <p class="impact-text">This represents <strong>$162 billion</strong> in losses annually for the restaurant industry</p>
-            </div>
-        </div>
-    </section>
+  <!-- ============================================
+       HERO
+  ============================================= -->
+  <section class="hero" id="home">
 
-    <!-- Solution Section -->
-    <section class="solution" id="solution">
-        <div class="solution-content">
-            <h2 class="section-title">Revolutionizing Kitchens with AI</h2>
-            <p class="solution-description">
-                Autonomous kitchen software enabled by embodied AI form factors. 
-                From ingredient preparation to plating, Ficio transforms outdated kitchen workflows 
-                into efficient, automated processes.
-            </p>
-            <div class="benefits">
-                <div class="benefit">
-                    <div class="benefit-number">Zero</div>
-                    <div class="benefit-text">Food Waste</div>
-                </div>
-                <div class="benefit">
-                    <div class="benefit-number">90%</div>
-                    <div class="benefit-text">Accuracy Rate</div>
-                </div>
-                <div class="benefit">
-                    <div class="benefit-number">22 Weeks</div>
-                    <div class="benefit-text">ROI Payback</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero__top">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Autonomous Kitchen AI
+      </div>
+      <h1 class="hero__headline">
+        Autonomous<br>
+        <span class="outline">Kitchens</span><br>
+        For Restaurants.
+      </h1>
+    </div>
 
-    <!-- Product Section -->
-    <section class="product" id="product">
-        <div class="section-container">
-            <h2 class="section-title">Introducing FicioPrep</h2>
-            <div class="product-intro">
-                <p class="product-description">
-                    AI layer between ingredients and kitchen. FicioPrep ensures zero food waste
-                    and consistent quality at 1/3 of the cost through computer vision quality checks
-                    and intelligent processing.
-                </p>
-                <a href="ficioprep.html" class="learn-more-btn">Learn More About FicioPrep</a>
-            </div>
-            <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">✓</div>
-                    <p class="feature-text">200% Quality Check</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">⚖</div>
-                    <p class="feature-text">Weight Control</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🧹</div>
-                    <p class="feature-text">Hygiene Control</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📊</div>
-                    <p class="feature-text">POS Integration</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🍃</div>
-                    <p class="feature-text">Perishability Measure</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">✅</div>
-                    <p class="feature-text">Quality Certified</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero__bottom">
+      <p class="hero__sub">
+        Ficio uses embodied AI to eliminate food waste, cut labor costs by 80%, and ensure consistent quality — transforming how restaurants operate.
+      </p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--dark">Reserve FicioPrep →</a>
+        <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="btn btn--outline">Schedule Demo ↗</a>
+      </div>
+    </div>
 
-    <!-- Pre-order Section -->
-    <section class="preorder" id="preorder">
-        <h2>Reserve FicioPrep</h2>
-        <p class="preorder-subtitle">Be among the first to revolutionize your kitchen</p>
-        <form class="preorder-form" action="https://formspree.io/f/mrboogea" method="POST">
-            <div class="form-group">
-                <input type="text" name="restaurant" id="restaurant" placeholder="Restaurant Name" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="name" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" id="email" placeholder="Email Address" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
-            </div>
-            <button type="submit" class="submit-btn">Reserve Now</button>
-        </form>
-        <div class="pricing-info">
-            <p class="price">Schedule a live demo!</p>
+  </section>
+
+
+  <!-- ============================================
+       TICKER
+  ============================================= -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <!-- Set 1 -->
+      <span class="ticker__item"><strong>80%</strong> Labor Efficiency Gain <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>67%</strong> Faster Service Time <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>200%</strong> Quality Improvement <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>Zero</strong> Food Waste <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>22 Weeks</strong> ROI Payback <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>90%</strong> Accuracy Rate <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>$162B</strong> Industry Problem Solved <span class="ticker__sep"></span></span>
+      <span class="ticker__item">Computer Vision AI <span class="ticker__sep"></span></span>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <span class="ticker__item"><strong>80%</strong> Labor Efficiency Gain <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>67%</strong> Faster Service Time <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>200%</strong> Quality Improvement <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>Zero</strong> Food Waste <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>22 Weeks</strong> ROI Payback <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>90%</strong> Accuracy Rate <span class="ticker__sep"></span></span>
+      <span class="ticker__item"><strong>$162B</strong> Industry Problem Solved <span class="ticker__sep"></span></span>
+      <span class="ticker__item">Computer Vision AI <span class="ticker__sep"></span></span>
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       STATS
+  ============================================= -->
+  <section class="stats">
+    <div class="stats__grid">
+
+      <div class="stats__cell reveal">
+        <div class="stats__index">01</div>
+        <div class="stats__num" data-target="80" data-suffix="%">0%</div>
+        <div class="stats__label">Labor Efficiency Gain</div>
+      </div>
+
+      <div class="stats__cell reveal reveal-d1">
+        <div class="stats__index">02</div>
+        <div class="stats__num" data-target="67" data-suffix="%">0%</div>
+        <div class="stats__label">Faster Service Time</div>
+      </div>
+
+      <div class="stats__cell reveal reveal-d2">
+        <div class="stats__index">03</div>
+        <div class="stats__num" data-target="200" data-suffix="%">0%</div>
+        <div class="stats__label">Quality Improvement</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       PROBLEM
+  ============================================= -->
+  <section class="section problem" id="problem">
+    <div class="section__inner">
+
+      <div class="section__header">
+        <div>
+          <div class="label">The Challenge</div>
+          <h2 class="section__title reveal" style="margin-top:20px">The Food<br>Waste Crisis</h2>
         </div>
-        <div class="schedule-section">
-            <div class="divider"></div>
-            <h3>Want to discuss your requirements?</h3>
-            <p>Schedule a 30-minute consultation with our team</p>
-            <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" class="schedule-btn">
-                Schedule a Call
+        <p class="section__desc reveal">
+          The restaurant industry loses $162 billion annually to food waste. This isn't a people problem — it's an infrastructure problem. Outdated workflows, manual processes, and poor inventory systems are costing your business every single day.
+        </p>
+      </div>
+
+      <div class="waste-grid">
+        <div class="waste-card reveal">
+          <div class="waste-card__num">40%</div>
+          <div class="waste-card__title">Total Food Waste</div>
+          <div class="waste-card__desc">of all food in restaurants ends up as waste, drained through inefficient kitchen workflows and over-production</div>
+        </div>
+        <div class="waste-card reveal reveal-d1">
+          <div class="waste-card__num">25%</div>
+          <div class="waste-card__title">Ingredient Prep Waste</div>
+          <div class="waste-card__desc">lost during preparation and processing due to inconsistent cutting, portioning, and lack of quality checks</div>
+        </div>
+        <div class="waste-card reveal reveal-d2">
+          <div class="waste-card__num">30%</div>
+          <div class="waste-card__title">Inventory Spoilage</div>
+          <div class="waste-card__desc">from poor inventory management, leading to over-ordering and ingredient spoilage before it ever reaches a plate</div>
+        </div>
+      </div>
+
+      <div class="problem__impact reveal">
+        <div class="impact__statement">
+          Restaurants waste <strong>$162 billion</strong><br>every year. Ficio is built<br>to end that.
+        </div>
+        <div class="impact__meta">
+          <div class="impact__figure">$162B</div>
+          <div class="impact__caption">Annual Industry Loss</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SOLUTION
+  ============================================= -->
+  <section class="section solution" id="solution">
+    <div class="section__inner">
+
+      <div class="section__header">
+        <div>
+          <div class="label">Our Solution</div>
+          <h2 class="section__title reveal" style="margin-top:20px">Revolutionizing<br>Kitchens with AI</h2>
+        </div>
+        <p class="section__desc reveal">
+          Autonomous kitchen software powered by embodied AI. From ingredient preparation to plating, Ficio transforms outdated kitchen workflows into efficient, automated, and data-driven processes that eliminate waste at the source.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card reveal">
+          <div class="benefit-card__idx">01</div>
+          <div class="benefit-card__value">Zero</div>
+          <div class="benefit-card__label">Food Waste</div>
+        </div>
+        <div class="benefit-card reveal reveal-d1">
+          <div class="benefit-card__idx">02</div>
+          <div class="benefit-card__value">90%</div>
+          <div class="benefit-card__label">Accuracy Rate</div>
+        </div>
+        <div class="benefit-card reveal reveal-d2">
+          <div class="benefit-card__idx">03</div>
+          <div class="benefit-card__value">22wk</div>
+          <div class="benefit-card__label">ROI Payback</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       PRODUCT
+  ============================================= -->
+  <section class="section product-section" id="product">
+    <div class="section__inner">
+
+      <div class="product-header">
+        <div>
+          <div class="label">The Product</div>
+          <h2 class="section__title reveal" style="margin-top:20px">Introducing<br>FicioPrep</h2>
+        </div>
+        <div class="product-right">
+          <p class="product-desc reveal">
+            The AI layer between ingredients and your kitchen. FicioPrep ensures zero food waste and consistent quality at 1/3 of the cost through computer vision and intelligent processing.
+          </p>
+          <a href="ficioprep.html" class="btn btn--dark reveal">Explore All Products →</a>
+        </div>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature-card reveal">
+          <div class="feature-card__icon">✓</div>
+          <div class="feature-card__name">Quality Check</div>
+          <div class="feature-card__desc">200% accuracy improvement over manual inspection through real-time computer vision analysis</div>
+        </div>
+
+        <div class="feature-card reveal reveal-d1">
+          <div class="feature-card__icon">⚖</div>
+          <div class="feature-card__name">Weight Control</div>
+          <div class="feature-card__desc">Precision portioning and yield management to eliminate over-prepping waste across every shift</div>
+        </div>
+
+        <div class="feature-card reveal reveal-d2">
+          <div class="feature-card__icon">✦</div>
+          <div class="feature-card__name">Hygiene Control</div>
+          <div class="feature-card__desc">Automated hygiene monitoring with real-time alerts to keep your kitchen compliant and safe</div>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-card__icon">⬡</div>
+          <div class="feature-card__name">POS Integration</div>
+          <div class="feature-card__desc">Seamless two-way sync with your existing point-of-sale systems for unified data and forecasting</div>
+        </div>
+
+        <div class="feature-card reveal reveal-d1">
+          <div class="feature-card__icon">◎</div>
+          <div class="feature-card__name">Perishability Tracking</div>
+          <div class="feature-card__desc">AI-powered shelf life prediction to prioritize ingredients before spoilage, every single day</div>
+        </div>
+
+        <div class="feature-card reveal reveal-d2">
+          <div class="feature-card__icon">★</div>
+          <div class="feature-card__name">Quality Certified</div>
+          <div class="feature-card__desc">Certified quality output that meets or exceeds industry standards — every plate, every time</div>
+        </div>
+
+      </div>
+
+      <div class="product-cta-row">
+        <a href="ficioprep.html" class="btn btn--outline">View Full Product Suite →</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       CONTACT / FORM
+  ============================================= -->
+  <section class="section contact" id="contact">
+    <div class="section__inner">
+      <div class="contact__grid">
+
+        <!-- Left column: info -->
+        <div class="contact__left">
+          <div class="label">Get In Touch</div>
+          <h2 class="contact__title reveal">Reserve<br>FicioPrep</h2>
+          <p class="contact__sub reveal">
+            Be among the first restaurants to transform your kitchen with autonomous AI. Fill out the form and our team will be in touch within 24 hours.
+          </p>
+          <div class="contact__info reveal">
+            <div class="contact__info-item">
+              <label>Email</label>
+              <a href="mailto:founders@ficio.org">founders@ficio.org</a>
+            </div>
+            <div class="contact__info-item">
+              <label>Response Time</label>
+              <span>Within 24 hours</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: form -->
+        <div class="form-panel reveal">
+          <div class="form-panel__title">Reserve Your Spot</div>
+          <form action="https://formspree.io/f/mrboogea" method="POST">
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="restaurant">Restaurant Name</label>
+                <input class="form-input" type="text" id="restaurant" name="restaurant" placeholder="Your restaurant" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="name">Your Name</label>
+                <input class="form-input" type="text" id="name" name="name" placeholder="Full name" required>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="email">Email Address</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="you@restaurant.com" required>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="phone">Phone Number</label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
+            </div>
+
+            <button type="submit" class="form-submit">Reserve Now →</button>
+
+          </form>
+
+          <div class="form-divider">
+            <p class="form-divider__text">Prefer to talk first?</p>
+            <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="form-divider__link">
+              Schedule a 30-min consultation ↗
             </a>
+          </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#problem">Food Waste</a>
-                <a href="#solution">Solution</a>
-                <a href="#product">Product</a>
-                <a href="mailto:founders@ficio.org">Contact</a>
-            </div>
-            <p class="copyright">© 2025 Ficio. Autonomous Kitchens for Everyone.</p>
-        </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+
+  <!-- ============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">Ficio</div>
+      <ul class="footer__nav">
+        <li><a href="#problem">Food Waste</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#product">Product</a></li>
+        <li><a href="ficioprep.html">Products</a></li>
+        <li><a href="mailto:founders@ficio.org">Contact</a></li>
+      </ul>
+      <div class="footer__copy">© 2025 Ficio. Autonomous Kitchens for Everyone.</div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+
+    // ─── Navbar: add .is-scrolled on scroll ───────────────────────────
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+
+    // ─── Scroll reveal ─────────────────────────────────────────────────
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
         });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -50px 0px' }
+    );
 
-        // Scroll to pre-order section
-        function scrollToPreorder() {
-            document.getElementById('preorder').scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+    // ─── Count-up animation ────────────────────────────────────────────
+    function animateCount(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1600;
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    const countObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    document.querySelectorAll('[data-target]').forEach(el => countObserver.observe(el));
+
+
+    // ─── Smooth scroll for anchor links ────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const id = link.getAttribute('href');
+        if (id === '#') return;
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          const offset = 68; // nav height
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
         }
+      });
+    });
 
-        // Add scroll animation for elements
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe sections for animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.benefit, .feature, .waste-stat');
-            sections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(section);
-            });
-
-            // Animate circular charts when they come into view
-            const circles = document.querySelectorAll('.circle');
-            const circleObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = 'fillCircle 2s ease forwards';
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            circles.forEach(circle => {
-                circleObserver.observe(circle);
-            });
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
-            } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
+  </script>
 </body>
 </html>
