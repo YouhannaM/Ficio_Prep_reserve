@@ -583,8 +583,272 @@
 
     .calc__cta-note { font-size: 12px; color: var(--g400); margin-top: 10px; }
 
-    /* ── PLACEHOLDER SECTIONS (stage 3) ── */
-    #how, #contact { padding: 80px var(--pad); }
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 100px var(--pad);
+      background: var(--g25);
+      border-top: 1px solid var(--g100);
+      border-bottom: 1px solid var(--g100);
+    }
+
+    .how__inner { max-width: var(--max); margin: 0 auto; }
+
+    .how__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .how__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--g100);
+      border: 1px solid var(--g100);
+      margin-bottom: 48px;
+    }
+
+    .how__step {
+      background: var(--white);
+      padding: 48px 40px;
+      transition: background 0.2s;
+    }
+
+    .how__step:hover { background: var(--white); }
+
+    .how__step-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g300);
+      margin-bottom: 20px;
+    }
+
+    .how__icon {
+      width: 42px;
+      height: 42px;
+      background: var(--black);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .how__icon svg {
+      width: 20px; height: 20px;
+      fill: none; stroke: #fff;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .how__step-title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .how__step-desc { font-size: 14px; color: var(--g500); line-height: 1.7; }
+
+    .how__tagline {
+      text-align: center;
+      font-size: 16px;
+      color: var(--g500);
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .how__tagline strong { color: var(--black); font-weight: 500; }
+
+    /* ── CTA / CONTACT ── */
+    .contact {
+      padding: 100px var(--pad);
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact__inner { max-width: var(--max); margin: 0 auto; }
+
+    .contact__title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 36px;
+    }
+
+    .contact__btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 72px;
+      flex-wrap: wrap;
+    }
+
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      padding: 14px 32px;
+      border-radius: 100px;
+      background: var(--white);
+      color: var(--black);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-light:hover {
+      background: var(--g50);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      padding: 14px 32px;
+      border-radius: 100px;
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .contact__form-wrap {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 56px;
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .contact__form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .contact__field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .contact__field label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .contact__input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact__input:focus {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .contact__input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .contact__submit {
+      width: 100%;
+      padding: 14px;
+      margin-top: 4px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .contact__submit:hover { background: var(--g50); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.3);
+      padding: 28px var(--pad);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer__logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.04em;
+    }
+
+    .footer__nav { display: flex; gap: 24px; }
+
+    .footer__nav a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.2s;
+    }
+
+    .footer__nav a:hover { color: var(--white); }
+
+    .footer__copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+    /* ── RESPONSIVE (stage 3 additions) ── */
+    @media (max-width: 900px) {
+      .how__grid { grid-template-columns: 1fr; background: none; border: none; gap: 0; }
+      .how__step { border-bottom: 1px solid var(--g100); }
+      .how__step:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 600px) {
+      .contact__btns { flex-direction: column; align-items: stretch; }
+      .btn-light, .btn-ghost { justify-content: center; }
+      .footer { flex-direction: column; text-align: center; gap: 16px; }
+      .footer__nav { flex-wrap: wrap; justify-content: center; }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -772,9 +1036,88 @@
     </div>
   </section>
 
-  <!-- ══ SECTIONS 4–5: added in stage 3 ══ -->
-  <section id="how"></section>
-  <section id="contact"></section>
+  <!-- ══ SECTION 4: HOW IT WORKS ══ -->
+  <section class="how" id="how">
+    <div class="how__inner">
+      <div class="how__eyebrow">How It Works</div>
+      <div class="how__grid">
+
+        <div class="how__step reveal">
+          <div class="how__step-num">01</div>
+          <div class="how__icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          </div>
+          <div class="how__step-title">Prep</div>
+          <div class="how__step-desc">AI-powered ingredient analysis and autonomous preparation — consistent quality, every cycle, at scale.</div>
+        </div>
+
+        <div class="how__step reveal d1">
+          <div class="how__step-num">02</div>
+          <div class="how__icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="how__step-title">Learn</div>
+          <div class="how__step-desc">Every cycle makes the system smarter — demand patterns, waste drivers, and quality benchmarks improve continuously.</div>
+        </div>
+
+        <div class="how__step reveal d2">
+          <div class="how__step-num">03</div>
+          <div class="how__icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <div class="how__step-title">Scale</div>
+          <div class="how__step-desc">Serve more people without adding headcount or square footage. More output, same kitchen, zero waste.</div>
+        </div>
+
+      </div>
+      <p class="how__tagline reveal">
+        <strong>FicioPrep plugs into your existing kitchen.</strong> No renovation. No retraining. Just more output.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 5: CTA / CONTACT ══ -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+
+      <h2 class="contact__title">Ready to unlock your<br>kitchen's full capacity?</h2>
+
+      <div class="contact__btns">
+        <a href="#calculator" class="btn-light">Try the Calculator →</a>
+        <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="btn-ghost">Schedule a Call ↗</a>
+      </div>
+
+      <div class="contact__form-wrap">
+        <span class="contact__form-label">Or drop us a message</span>
+        <form action="https://formspree.io/f/mrboogea" method="POST">
+          <div class="contact__field">
+            <label for="c-name">Name</label>
+            <input class="contact__input" type="text" id="c-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="contact__field">
+            <label for="c-email">Email</label>
+            <input class="contact__input" type="email" id="c-email" name="email" placeholder="you@restaurant.com" required>
+          </div>
+          <div class="contact__field">
+            <label for="c-org">Restaurant / Organization</label>
+            <input class="contact__input" type="text" id="c-org" name="organization" placeholder="Where do you work?">
+          </div>
+          <button type="submit" class="contact__submit">Send Message →</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__logo">Ficio</div>
+    <nav class="footer__nav">
+      <a href="ficioprep.html">Products</a>
+      <a href="mailto:ymelek@ficio.org">Contact</a>
+    </nav>
+    <div class="footer__copy">© 2025 Ficio. Autonomous Kitchens for Everyone.</div>
+  </footer>
 
   <script>
     // Nav scroll
