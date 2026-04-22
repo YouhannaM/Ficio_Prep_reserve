@@ -266,8 +266,325 @@
     .d1 { transition-delay: 0.1s; }
     .d2 { transition-delay: 0.2s; }
 
-    /* ── PLACEHOLDER SECTIONS (stages 2 & 3) ── */
-    #calculator, #how, #contact { padding: 80px var(--pad); }
+    /* ── CALCULATOR ── */
+    .calculator {
+      padding: 100px var(--pad);
+      background: var(--white);
+      border-top: 1px solid var(--g100);
+    }
+
+    .calculator__inner { max-width: var(--max); margin: 0 auto; }
+
+    .calc__header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .calc__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+      margin-bottom: 14px;
+    }
+
+    .calc__title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+
+    .calc__sub {
+      font-size: 16px;
+      color: var(--g500);
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* Email gate */
+    .calc__gate { max-width: 480px; margin: 0 auto; text-align: center; }
+
+    .calc__gate-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .calc__gate-input {
+      flex: 1;
+      padding: 13px 16px;
+      background: var(--g25);
+      border: 1px solid var(--g100);
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .calc__gate-input:focus { border-color: var(--black); background: var(--white); }
+    .calc__gate-input::placeholder { color: var(--g300); }
+
+    .calc__gate-btn {
+      padding: 13px 24px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 13.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .calc__gate-btn:hover { background: var(--g700); }
+
+    .calc__gate-note {
+      font-size: 12px;
+      color: var(--g400);
+      margin-top: 10px;
+    }
+
+    /* Calculator app */
+    .calc__app { display: none; }
+    .calc__app.visible { display: block; }
+
+    /* Op type */
+    .calc__types {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 36px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .calc__type-btn {
+      padding: 12px 10px;
+      border: 1px solid var(--g100);
+      background: var(--g25);
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 400;
+      font-family: var(--font);
+      color: var(--g500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .calc__type-btn:hover { border-color: var(--g300); color: var(--black); }
+
+    .calc__type-btn.active {
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* Sliders */
+    .calc__sliders {
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .calc__slider { margin-bottom: 22px; }
+
+    .calc__slider-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 7px;
+    }
+
+    .calc__slider-label { font-size: 13.5px; color: var(--g500); }
+
+    .calc__slider-val {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--black);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .calc__slider-help { font-size: 11.5px; color: var(--g400); margin-bottom: 5px; }
+
+    .calc__range {
+      width: 100%;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .calc__range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--black);
+      cursor: pointer;
+      border: 3px solid var(--white);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .calc__range::-moz-range-thumb {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--black);
+      cursor: pointer;
+      border: 3px solid var(--white);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Divider */
+    .calc__divider {
+      height: 1px;
+      background: var(--g100);
+      max-width: 680px;
+      margin: 0 auto 32px;
+    }
+
+    /* Results headline */
+    .calc__results-head {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .calc__results-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+      margin-bottom: 6px;
+    }
+
+    .calc__results-headline {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* Cards */
+    .calc__cards-primary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      max-width: 680px;
+      margin: 0 auto 8px;
+    }
+
+    .calc__cards-secondary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 680px;
+      margin: 0 auto 28px;
+    }
+
+    .calc__card {
+      padding: 28px 20px;
+      text-align: center;
+      border: 1px solid var(--g100);
+      background: var(--g25);
+    }
+
+    .calc__card--dark {
+      background: var(--black);
+      border-color: var(--black);
+    }
+
+    .calc__card-val {
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      color: var(--black);
+    }
+
+    .calc__card--dark .calc__card-val { color: var(--white); }
+
+    .calc__card-lbl {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--g400);
+      margin-top: 7px;
+    }
+
+    .calc__card--dark .calc__card-lbl { color: rgba(255,255,255,0.5); }
+
+    .calc__card-sub {
+      font-size: 11.5px;
+      color: var(--g400);
+      margin-top: 3px;
+    }
+
+    .calc__card--dark .calc__card-sub { color: rgba(255,255,255,0.35); }
+
+    /* Throughput */
+    .calc__throughput {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      padding: 24px 32px;
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .calc__throughput-num {
+      font-size: clamp(44px, 5vw, 60px);
+      font-weight: 200;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .calc__throughput-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* Calc CTA */
+    .calc__cta { text-align: center; }
+
+    .calc__cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      padding: 14px 36px;
+      border-radius: 100px;
+      background: var(--black);
+      color: var(--white);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .calc__cta-btn:hover {
+      background: var(--g700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    .calc__cta-note { font-size: 12px; color: var(--g400); margin-top: 10px; }
+
+    /* ── PLACEHOLDER SECTIONS (stage 3) ── */
+    #how, #contact { padding: 80px var(--pad); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -328,8 +645,134 @@
     </div>
   </section>
 
-  <!-- ══ SECTIONS 3–5: added in stages 2 & 3 ══ -->
-  <section id="calculator"></section>
+  <!-- ══ SECTION 3: CALCULATOR ══ -->
+  <section class="calculator" id="calculator">
+    <div class="calculator__inner">
+
+      <div class="calc__header">
+        <div class="calc__eyebrow">Growth Calculator</div>
+        <h2 class="calc__title">How much more could your kitchen make?</h2>
+        <p class="calc__sub">Adjust the inputs to match your operation and see real numbers.</p>
+      </div>
+
+      <!-- Email gate -->
+      <div class="calc__gate" id="calcGate">
+        <form class="calc__gate-form" id="gateForm">
+          <input class="calc__gate-input" type="email" id="gateEmail" placeholder="Enter your email to unlock" required>
+          <button class="calc__gate-btn" type="submit">Unlock →</button>
+        </form>
+        <p class="calc__gate-note">Free to use. No commitment.</p>
+      </div>
+
+      <!-- Calculator (revealed after email) -->
+      <div class="calc__app" id="calcApp">
+
+        <!-- Operation type -->
+        <div class="calc__types" id="calcTypes">
+          <button class="calc__type-btn active" data-type="restaurant" type="button">🍽️ Restaurant</button>
+          <button class="calc__type-btn" data-type="commissary" type="button">🏭 Commissary</button>
+          <button class="calc__type-btn" data-type="university" type="button">🎓 University</button>
+          <button class="calc__type-btn" data-type="hospital" type="button">🏥 Hospital</button>
+          <button class="calc__type-btn" data-type="ghost" type="button">👻 Ghost Kitchen</button>
+          <button class="calc__type-btn" data-type="catering" type="button">🎪 Catering</button>
+        </div>
+
+        <!-- Sliders -->
+        <div class="calc__sliders">
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Meals served per day</span>
+              <span class="calc__slider-val" id="mealsVal">200</span>
+            </div>
+            <input class="calc__range" type="range" id="mealsSlider" min="50" max="5000" step="50" value="200">
+          </div>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Prep hours per day</span>
+              <span class="calc__slider-val" id="hoursVal">8 hrs</span>
+            </div>
+            <input class="calc__range" type="range" id="hoursSlider" min="2" max="24" step="1" value="8">
+          </div>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Prep staff count</span>
+              <span class="calc__slider-val" id="staffVal">3</span>
+            </div>
+            <input class="calc__range" type="range" id="staffSlider" min="1" max="20" step="1" value="3">
+          </div>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Average hourly wage</span>
+              <span class="calc__slider-val" id="wageVal">$18/hr</span>
+            </div>
+            <input class="calc__range" type="range" id="wageSlider" min="12" max="35" step="1" value="18">
+          </div>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Estimated food waste</span>
+              <span class="calc__slider-val" id="wasteVal">8%</span>
+            </div>
+            <div class="calc__slider-help">Industry average: 8–12% of food purchased</div>
+            <input class="calc__range" type="range" id="wasteSlider" min="2" max="20" step="1" value="8">
+          </div>
+        </div>
+
+        <div class="calc__divider"></div>
+
+        <!-- Results -->
+        <div class="calc__results-head">
+          <div class="calc__results-eyebrow">Your kitchen with Ficio</div>
+          <div class="calc__results-headline">Unlock <span id="netDisplay">$0</span> in new annual value</div>
+        </div>
+
+        <div class="calc__cards-primary">
+          <div class="calc__card calc__card--dark">
+            <div class="calc__card-val" id="extraMealsCard">0</div>
+            <div class="calc__card-lbl">Additional Meals / Day</div>
+            <div class="calc__card-sub">2.5× current throughput</div>
+          </div>
+          <div class="calc__card calc__card--dark">
+            <div class="calc__card-val" id="monthlyRevCard">$0</div>
+            <div class="calc__card-lbl">New Revenue / Month</div>
+            <div class="calc__card-sub" id="annualRevSub">$0 / year</div>
+          </div>
+        </div>
+
+        <div class="calc__cards-secondary">
+          <div class="calc__card">
+            <div class="calc__card-val" id="paybackCard">0 wks</div>
+            <div class="calc__card-lbl">Payback Period</div>
+            <div class="calc__card-sub">At $1,800/mo</div>
+          </div>
+          <div class="calc__card">
+            <div class="calc__card-val" id="wasteLbsCard">0 lbs</div>
+            <div class="calc__card-lbl">Waste Eliminated / Year</div>
+            <div class="calc__card-sub">Annual food waste saved</div>
+          </div>
+          <div class="calc__card">
+            <div class="calc__card-val" id="laborCard">$0</div>
+            <div class="calc__card-lbl">Labor Reinvested</div>
+            <div class="calc__card-sub">Annual savings</div>
+          </div>
+        </div>
+
+        <div class="calc__throughput">
+          <div class="calc__throughput-num">2.5×</div>
+          <div class="calc__throughput-text">More prep output per square foot — same kitchen, same footprint</div>
+        </div>
+
+        <div class="calc__cta">
+          <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="calc__cta-btn">
+            Let's unlock your kitchen →
+          </a>
+          <p class="calc__cta-note">Free consultation. No commitment.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTIONS 4–5: added in stage 3 ══ -->
   <section id="how"></section>
   <section id="contact"></section>
 
@@ -356,6 +799,126 @@
         if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
       });
     });
+
+    // ── CALCULATOR ──────────────────────────────────────────────────────
+    (function () {
+      const RAAS_ANNUAL  = 1800 * 12;
+      const EFFICIENCY   = 0.80;
+      const THROUGHPUT   = 2.5;
+      const WASTE_CUT    = 0.60;
+      const MEAL_REV     = 12;
+      const LBS_PER_MEAL = 1.5;
+      const WEEKS        = 52;
+
+      const DEFAULTS = {
+        restaurant: { meals: 200,  hours: 8,  staff: 3,  wage: 18, waste: 8  },
+        commissary: { meals: 800,  hours: 16, staff: 8,  wage: 17, waste: 10 },
+        university: { meals: 1500, hours: 20, staff: 12, wage: 16, waste: 12 },
+        hospital:   { meals: 600,  hours: 14, staff: 6,  wage: 17, waste: 9  },
+        ghost:      { meals: 400,  hours: 10, staff: 4,  wage: 18, waste: 7  },
+        catering:   { meals: 500,  hours: 12, staff: 5,  wage: 17, waste: 11 },
+      };
+
+      function fmt(n) {
+        if (n >= 1e6)  return '$' + (n / 1e6).toFixed(1) + 'M';
+        if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+        return '$' + Math.round(n);
+      }
+
+      function fmtN(n) {
+        if (n >= 1e6)  return (n / 1e6).toFixed(1) + 'M';
+        if (n >= 1000) return Math.round(n / 1000) + 'K';
+        return Math.round(n).toString();
+      }
+
+      const $ = id => document.getElementById(id);
+
+      const sliders = {
+        meals: $('mealsSlider'), hours: $('hoursSlider'),
+        staff: $('staffSlider'), wage:  $('wageSlider'), waste: $('wasteSlider'),
+      };
+
+      function setTrack(inp) {
+        const pct = ((inp.value - inp.min) / (inp.max - inp.min)) * 100;
+        inp.style.background = `linear-gradient(to right,#000 ${pct}%,#e8e8e8 ${pct}%)`;
+      }
+
+      function syncDisplay() {
+        $('mealsVal').textContent = Number(sliders.meals.value).toLocaleString();
+        $('hoursVal').textContent = sliders.hours.value + ' hrs';
+        $('staffVal').textContent = sliders.staff.value;
+        $('wageVal').textContent  = '$' + sliders.wage.value + '/hr';
+        $('wasteVal').textContent = sliders.waste.value + '%';
+        Object.values(sliders).forEach(setTrack);
+      }
+
+      function recalc() {
+        const meals = +sliders.meals.value, hours = +sliders.hours.value,
+              staff = +sliders.staff.value, wage  = +sliders.wage.value,
+              waste = +sliders.waste.value;
+
+        const extraMeals  = Math.round(meals * (THROUGHPUT - 1));
+        const newRevYear  = extraMeals * MEAL_REV * 365;
+        const newRevMonth = newRevYear / 12;
+        const laborSaved  = staff * wage * hours * 365 * EFFICIENCY;
+        const wasteLbs    = Math.round(meals * LBS_PER_MEAL * (waste / 100) * 365 * WASTE_CUT);
+        const wasteSaved  = meals * MEAL_REV * (waste / 100) * 365 * WASTE_CUT;
+        const netGain     = newRevYear + laborSaved + wasteSaved - RAAS_ANNUAL;
+        const payback     = Math.round(RAAS_ANNUAL / ((newRevYear + laborSaved + wasteSaved) / WEEKS));
+
+        $('extraMealsCard').textContent = fmtN(extraMeals);
+        $('monthlyRevCard').textContent = fmt(newRevMonth);
+        $('annualRevSub').textContent   = fmt(newRevYear) + ' / year';
+        $('paybackCard').textContent    = payback + ' wks';
+        $('wasteLbsCard').textContent   = fmtN(wasteLbs) + ' lbs';
+        $('laborCard').textContent      = fmt(laborSaved);
+        $('netDisplay').textContent     = fmt(netGain);
+      }
+
+      function setDefaults(type) {
+        const d = DEFAULTS[type];
+        sliders.meals.value = d.meals; sliders.hours.value = d.hours;
+        sliders.staff.value = d.staff; sliders.wage.value  = d.wage;
+        sliders.waste.value = d.waste;
+        syncDisplay(); recalc();
+      }
+
+      document.querySelectorAll('.calc__type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.calc__type-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          setDefaults(btn.dataset.type);
+        });
+      });
+
+      Object.values(sliders).forEach(inp => {
+        inp.addEventListener('input', () => { syncDisplay(); recalc(); });
+      });
+
+      function showCalc() {
+        $('calcGate').style.display = 'none';
+        $('calcApp').classList.add('visible');
+        syncDisplay(); recalc();
+      }
+
+      if (localStorage.getItem('ficio_calc_email')) {
+        showCalc();
+      } else {
+        syncDisplay(); recalc();
+      }
+
+      $('gateForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const email = $('gateEmail').value;
+        fetch('https://formspree.io/f/mrboogea', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email, _subject: 'Calculator Access', source: 'growth-calculator' })
+        }).catch(() => {});
+        localStorage.setItem('ficio_calc_email', email);
+        showCalc();
+      });
+    })();
   </script>
 </body>
 </html>
