@@ -3,43 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ficio — Autonomous Kitchens</title>
-  <meta name="description" content="Ficio uses embodied AI to eliminate food waste, cut labor costs by 80%, and ensure consistent quality — transforming restaurant kitchens for the future.">
+  <title>Ficio — Creating Food Abundance with Embodied AI</title>
+  <meta name="description" content="See how much more your kitchen could produce. FicioPrep uses embodied AI to unlock revenue, eliminate waste, and scale output.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
 
-    /* =============================================
-       RESET & CUSTOM PROPERTIES
-    ============================================= */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --black:     #000000;
-      --white:     #ffffff;
-      --g900:      #0a0a0a;
-      --g800:      #1a1a1a;
-      --g700:      #333333;
-      --g500:      #666666;
-      --g400:      #888888;
-      --g300:      #aaaaaa;
-      --g200:      #cccccc;
-      --g100:      #e8e8e8;
-      --g50:       #f5f5f5;
-      --g25:       #fafafa;
-
-      --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --max-w:     1280px;
-      --pad-x:     64px;
-      --border:    1px solid var(--g100);
-      --radius:    0px;
-
-      --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+      --black: #000;
+      --white: #fff;
+      --g900: #111;
+      --g700: #333;
+      --g500: #666;
+      --g400: #888;
+      --g300: #aaa;
+      --g100: #e8e8e8;
+      --g50:  #f5f5f5;
+      --g25:  #fafafa;
+      --red:  #E63626;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max:  1100px;
+      --pad:  64px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -51,81 +40,37 @@
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
 
-    /* =============================================
-       TYPOGRAPHY SYSTEM
-    ============================================= */
-    .label {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--g400);
-    }
-
-    .label::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 1px;
-      background: currentColor;
-      flex-shrink: 0;
-    }
-
-    /* =============================================
-       NAVIGATION
-    ============================================= */
+    /* ── NAV ── */
     .nav {
       position: fixed;
       inset: 0 0 auto 0;
-      z-index: 999;
-      padding: 0 var(--pad-x);
-      height: 68px;
+      z-index: 100;
+      height: 64px;
+      padding: 0 var(--pad);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background 0.4s var(--ease-out),
-                  border-color 0.4s var(--ease-out);
+      transition: background 0.3s, border-color 0.3s;
       border-bottom: 1px solid transparent;
     }
 
-    .nav.is-scrolled {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+    .nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom-color: var(--g100);
     }
 
     .nav__logo {
-      font-size: 19px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 700;
       letter-spacing: -0.04em;
       color: var(--black);
     }
-
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-    }
-
-    .nav__links a {
-      font-size: 13.5px;
-      font-weight: 400;
-      color: var(--g500);
-      letter-spacing: 0.01em;
-      transition: color 0.2s;
-    }
-
-    .nav__links a:hover { color: var(--black); }
 
     .nav__cta {
       font-size: 13px;
@@ -134,827 +79,259 @@
       background: var(--black);
       padding: 9px 22px;
       border-radius: 100px;
-      letter-spacing: 0.02em;
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      transition: background 0.2s, transform 0.2s;
     }
 
     .nav__cta:hover {
       background: var(--g700);
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
     }
 
-    /* =============================================
-       HERO
-    ============================================= */
+    /* ── HERO ── */
     .hero {
-      position: relative;
       min-height: 100svh;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 130px var(--pad-x) 70px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px var(--pad) 80px;
+      position: relative;
       overflow: hidden;
     }
 
-    /* Dot grid texture */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px);
       background-size: 28px 28px;
       pointer-events: none;
-      z-index: 0;
     }
 
-    /* Fade-out at bottom */
     .hero::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 180px;
-      background: linear-gradient(to bottom, transparent, var(--white));
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(transparent, var(--white));
       pointer-events: none;
-      z-index: 1;
     }
 
-    .hero__top {
+    .hero__inner {
       position: relative;
-      z-index: 2;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      width: 100%;
+      z-index: 1;
+      max-width: 760px;
     }
 
     .hero__badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--g500);
-      margin-bottom: 44px;
-      padding: 7px 14px 7px 10px;
-      border: var(--border);
+      border: 1px solid var(--g100);
       border-radius: 100px;
-      background: rgba(255,255,255,0.8);
+      padding: 6px 14px 6px 10px;
+      background: rgba(255,255,255,0.85);
+      margin-bottom: 44px;
     }
 
-    .hero__badge-dot {
+    .hero__dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: var(--black);
-      flex-shrink: 0;
       animation: pulse 2.5s ease infinite;
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.7); }
+      50%       { opacity: 0.35; transform: scale(0.65); }
     }
 
-    .hero__headline {
-      font-size: clamp(60px, 8.5vw, 118px);
+    .hero__h1 {
+      font-size: clamp(40px, 6vw, 76px);
       font-weight: 300;
-      line-height: 0.96;
-      letter-spacing: -0.04em;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
       color: var(--black);
-      margin-bottom: 0;
-    }
-
-    .hero__headline .outline {
-      -webkit-text-stroke: 1.5px var(--black);
-      color: transparent;
-    }
-
-    .hero__bottom {
-      position: relative;
-      z-index: 2;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: end;
-      padding-top: 56px;
-      border-top: var(--border);
+      margin-bottom: 24px;
     }
 
     .hero__sub {
-      font-size: 17px;
-      font-weight: 400;
+      font-size: 18px;
       color: var(--g500);
-      line-height: 1.75;
-      max-width: 420px;
+      font-weight: 400;
+      margin-bottom: 48px;
+      line-height: 1.6;
     }
 
-    .hero__actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    /* =============================================
-       BUTTONS
-    ============================================= */
-    .btn {
+    .hero__cta {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      font-family: var(--font);
-      font-size: 14.5px;
+      gap: 8px;
+      font-size: 15px;
       font-weight: 500;
-      padding: 14px 28px;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.22s var(--ease-out);
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-    }
-
-    .btn--dark {
-      background: var(--black);
       color: var(--white);
+      background: var(--black);
+      padding: 16px 36px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
-    .btn--dark:hover {
+    .hero__cta:hover {
       background: var(--g700);
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.18);
     }
 
-    .btn--outline {
-      background: transparent;
-      color: var(--black);
-      border: 1.5px solid var(--g200);
+    /* ── PROBLEM ── */
+    .problem {
+      padding: 100px var(--pad);
+      background: var(--g25);
+      border-top: 1px solid var(--g100);
+      border-bottom: 1px solid var(--g100);
     }
 
-    .btn--outline:hover {
-      border-color: var(--black);
-      background: var(--black);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
+    .problem__inner { max-width: var(--max); margin: 0 auto; }
 
-    /* =============================================
-       TICKER / MARQUEE
-    ============================================= */
-    .ticker {
-      background: var(--black);
-      color: var(--white);
-      padding: 15px 0;
-      overflow: hidden;
-      border-top: 1px solid var(--g900);
-    }
-
-    .ticker__track {
-      display: flex;
-      width: max-content;
-      animation: marquee 36s linear infinite;
-    }
-
-    .ticker__track:hover { animation-play-state: paused; }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    .ticker__item {
-      display: inline-flex;
-      align-items: center;
-      gap: 32px;
-      padding-right: 64px;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--g300);
-    }
-
-    .ticker__item strong {
-      color: var(--white);
-      font-weight: 500;
-    }
-
-    .ticker__sep {
-      width: 3px;
-      height: 3px;
-      background: var(--g500);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* =============================================
-       STATS SECTION
-    ============================================= */
-    .stats {
-      background: var(--white);
-      border-bottom: var(--border);
-    }
-
-    .stats__grid {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .stats__cell {
-      padding: 72px 56px;
-      border-right: var(--border);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
-    }
-
-    .stats__cell:last-child { border-right: 0; }
-
-    .stats__cell::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--black);
-      transition: width 0.5s var(--ease-out);
-    }
-
-    .stats__cell:hover::after { width: 100%; }
-
-    .stats__index {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--g300);
-      letter-spacing: 0.1em;
-      margin-bottom: 20px;
-    }
-
-    .stats__num {
-      font-size: clamp(48px, 5vw, 76px);
-      font-weight: 200;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      color: var(--black);
-      margin-bottom: 10px;
-    }
-
-    .stats__label {
-      font-size: 14px;
-      color: var(--g500);
-      font-weight: 400;
-    }
-
-    /* =============================================
-       SECTION SHARED
-    ============================================= */
-    .section {
-      padding: 120px var(--pad-x);
-    }
-
-    .section__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-
-    .section__header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-      margin-bottom: 72px;
-      padding-bottom: 64px;
-      border-bottom: var(--border);
-    }
-
-    .section__title {
-      font-size: clamp(38px, 4vw, 58px);
-      font-weight: 300;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-    }
-
-    .section__desc {
-      font-size: 16.5px;
-      color: var(--g500);
-      line-height: 1.8;
-      padding-top: 8px;
-    }
-
-    /* =============================================
-       PROBLEM SECTION
-    ============================================= */
-    .problem { background: var(--white); }
-
-    .waste-grid {
+    .problem__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--g100);
-      outline: 1px solid var(--g100);
-      margin-bottom: 1px;
+      border: 1px solid var(--g100);
+      margin-bottom: 48px;
     }
 
-    .waste-card {
+    .problem__stat {
       background: var(--white);
-      padding: 48px 44px;
+      padding: 60px 48px;
       position: relative;
-      transition: background 0.3s;
+      overflow: hidden;
+      transition: background 0.2s;
     }
 
-    .waste-card:hover { background: var(--g25); }
+    .problem__stat:hover { background: var(--g25); }
 
-    .waste-card__num {
-      font-size: clamp(52px, 5.5vw, 80px);
-      font-weight: 200;
-      letter-spacing: -0.05em;
+    .problem__stat::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease);
+    }
+
+    .problem__stat:hover::after { transform: scaleX(1); }
+
+    .problem__num {
+      font-size: clamp(52px, 6.5vw, 88px);
+      font-weight: 800;
+      color: var(--red);
       line-height: 1;
-      color: var(--black);
+      letter-spacing: -0.04em;
       margin-bottom: 16px;
     }
 
-    .waste-card__title {
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 8px;
-      color: var(--black);
-    }
-
-    .waste-card__desc {
-      font-size: 13.5px;
-      color: var(--g500);
-      line-height: 1.7;
-    }
-
-    .problem__impact {
-      background: var(--black);
-      color: var(--white);
-      padding: 64px 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      outline: 1px solid var(--g100);
-    }
-
-    .impact__statement {
-      font-size: clamp(22px, 2.5vw, 34px);
-      font-weight: 300;
-      line-height: 1.3;
-      letter-spacing: -0.025em;
-    }
-
-    .impact__statement strong {
-      font-weight: 600;
-    }
-
-    .impact__meta {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .impact__figure {
-      font-size: 44px;
-      font-weight: 200;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
-
-    .impact__caption {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--g500);
-    }
-
-    /* =============================================
-       SOLUTION SECTION
-    ============================================= */
-    .solution {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .solution .label {
-      color: var(--g500);
-    }
-
-    .solution .label::before {
-      background: var(--g500);
-    }
-
-    .solution .section__header {
-      border-bottom-color: rgba(255,255,255,0.08);
-    }
-
-    .solution .section__title { color: var(--white); }
-
-    .solution .section__desc { color: rgba(255,255,255,0.5); }
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(255,255,255,0.08);
-      outline: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .benefit-card {
-      background: var(--black);
-      padding: 52px 44px;
-      position: relative;
-      transition: background 0.3s;
-    }
-
-    .benefit-card:hover { background: var(--g900); }
-
-    .benefit-card__idx {
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.1em;
-      margin-bottom: 28px;
-    }
-
-    .benefit-card__value {
-      font-size: clamp(44px, 4.5vw, 66px);
-      font-weight: 200;
-      letter-spacing: -0.05em;
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 12px;
-    }
-
-    .benefit-card__label {
+    .problem__label {
       font-size: 14px;
-      color: rgba(255,255,255,0.45);
+      color: var(--g500);
+      line-height: 1.55;
       font-weight: 400;
     }
 
-    /* =============================================
-       PRODUCT SECTION
-    ============================================= */
-    .product-section { background: var(--white); }
-
-    .product-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: end;
-      margin-bottom: 60px;
-    }
-
-    .product-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 28px;
-    }
-
-    .product-desc {
-      font-size: 16.5px;
-      color: var(--g500);
-      line-height: 1.8;
-      text-align: right;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--g100);
-      outline: 1px solid var(--g100);
-    }
-
-    .feature-card {
-      background: var(--white);
-      padding: 40px;
-      transition: background 0.3s;
-    }
-
-    .feature-card:hover { background: var(--g25); }
-
-    .feature-card__icon {
-      width: 38px;
-      height: 38px;
-      background: var(--black);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      margin-bottom: 24px;
-      filter: grayscale(1);
-    }
-
-    .feature-card__name {
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 8px;
-      color: var(--black);
-    }
-
-    .feature-card__desc {
-      font-size: 13px;
-      color: var(--g500);
-      line-height: 1.7;
-    }
-
-    .product-cta-row {
-      display: flex;
-      justify-content: center;
-      margin-top: 48px;
-    }
-
-    /* =============================================
-       CONTACT / FORM SECTION
-    ============================================= */
-    .contact {
-      background: var(--g25);
-      border-top: var(--border);
-    }
-
-    .contact__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 120px;
-      align-items: start;
-    }
-
-    .contact__left {
-      position: sticky;
-      top: 88px;
-    }
-
-    .contact__title {
-      font-size: clamp(38px, 4vw, 56px);
-      font-weight: 300;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-      margin-top: 20px;
-    }
-
-    .contact__sub {
-      font-size: 16px;
-      color: var(--g500);
-      line-height: 1.8;
-      margin-bottom: 44px;
-    }
-
-    .contact__info {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .contact__info-item label {
-      display: block;
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--g300);
-      margin-bottom: 4px;
-    }
-
-    .contact__info-item a,
-    .contact__info-item span {
-      font-size: 15px;
-      color: var(--black);
-      transition: color 0.2s;
-    }
-
-    .contact__info-item a:hover { color: var(--g500); }
-
-    /* Form panel */
-    .form-panel {
-      background: var(--white);
-      border: var(--border);
-      padding: 52px;
-    }
-
-    .form-panel__title {
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 32px;
-      letter-spacing: -0.02em;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 18px;
-    }
-
-    .form-field--full { grid-column: 1 / -1; }
-
-    .form-label {
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--g400);
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 13px 15px;
-      background: var(--g25);
-      border: 1px solid var(--g100);
-      font-size: 14.5px;
-      font-family: var(--font);
-      color: var(--black);
-      transition: border-color 0.2s, background 0.2s;
-      outline: none;
-      -webkit-appearance: none;
-      border-radius: 0;
-    }
-
-    .form-input:focus {
-      background: var(--white);
-      border-color: var(--black);
-    }
-
-    .form-input::placeholder { color: var(--g300); }
-
-    .form-submit {
-      width: 100%;
-      padding: 16px;
-      background: var(--black);
-      color: var(--white);
-      font-size: 14.5px;
-      font-weight: 500;
-      font-family: var(--font);
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      letter-spacing: 0.01em;
-      margin-top: 4px;
-      border-radius: 0;
-    }
-
-    .form-submit:hover {
-      background: var(--g700);
-      transform: translateY(-1px);
-    }
-
-    .form-divider {
-      margin-top: 36px;
-      padding-top: 36px;
-      border-top: var(--border);
-      text-align: center;
-    }
-
-    .form-divider__text {
-      font-size: 13px;
-      color: var(--g400);
-      margin-bottom: 12px;
-    }
-
-    .form-divider__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--black);
-      border-bottom: 1px solid var(--g200);
-      padding-bottom: 1px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .form-divider__link:hover {
-      color: var(--g500);
-      border-color: var(--g400);
-    }
-
-    /* =============================================
-       FOOTER
-    ============================================= */
-    .footer {
-      background: var(--black);
-      color: rgba(255,255,255,0.35);
-      padding: 40px var(--pad-x);
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .footer__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .footer__logo {
+    .problem__sentence {
       font-size: 17px;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: -0.04em;
+      color: var(--g500);
+      line-height: 1.8;
+      max-width: 680px;
     }
 
-    .footer__nav {
-      display: flex;
-      gap: 28px;
+    .problem__sentence strong { color: var(--black); font-weight: 500; }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
 
-    .footer__nav a {
-      font-size: 12.5px;
-      color: rgba(255,255,255,0.35);
-      transition: color 0.2s;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
 
-    .footer__nav a:hover { color: var(--white); }
-
-    .footer__copy {
-      font-size: 11.5px;
-      color: rgba(255,255,255,0.25);
-    }
-
-    /* =============================================
-       CALCULATOR SECTION
-    ============================================= */
+    /* ── CALCULATOR ── */
     .calculator {
+      padding: 100px var(--pad);
       background: var(--white);
-      border-top: var(--border);
+      border-top: 1px solid var(--g100);
     }
 
-    .calc-gate {
-      max-width: 560px;
-      margin: 0 auto;
+    .calculator__inner { max-width: var(--max); margin: 0 auto; }
+
+    .calc__header {
       text-align: center;
+      margin-bottom: 56px;
     }
 
-    .calc-gate__title {
-      font-size: clamp(32px, 3.5vw, 48px);
+    .calc__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--g400);
+      margin-bottom: 14px;
+    }
+
+    .calc__title {
+      font-size: clamp(28px, 3.5vw, 42px);
       font-weight: 300;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin: 20px 0 16px;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
     }
 
-    .calc-gate__sub {
+    .calc__sub {
       font-size: 16px;
       color: var(--g500);
-      line-height: 1.7;
-      margin-bottom: 36px;
-    }
-
-    .calc-gate__form {
-      display: flex;
-      gap: 8px;
       max-width: 440px;
       margin: 0 auto;
     }
 
-    .calc-gate__input {
+    /* Email gate */
+    .calc__gate { max-width: 480px; margin: 0 auto; text-align: center; }
+
+    .calc__gate-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .calc__gate-input {
       flex: 1;
-      padding: 14px 16px;
+      padding: 13px 16px;
       background: var(--g25);
       border: 1px solid var(--g100);
-      font-size: 14.5px;
+      font-size: 14px;
       font-family: var(--font);
       color: var(--black);
       outline: none;
-      border-radius: 0;
-      -webkit-appearance: none;
       transition: border-color 0.2s;
     }
 
-    .calc-gate__input:focus {
-      border-color: var(--black);
-      background: var(--white);
-    }
+    .calc__gate-input:focus { border-color: var(--black); background: var(--white); }
+    .calc__gate-input::placeholder { color: var(--g300); }
 
-    .calc-gate__input::placeholder { color: var(--g300); }
-
-    .calc-gate__btn {
-      padding: 14px 24px;
+    .calc__gate-btn {
+      padding: 13px 24px;
       background: var(--black);
       color: var(--white);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
       font-family: var(--font);
       border: none;
@@ -963,73 +340,35 @@
       transition: background 0.2s;
     }
 
-    .calc-gate__btn:hover { background: var(--g700); }
+    .calc__gate-btn:hover { background: var(--g700); }
 
-    .calc-gate__note {
+    .calc__gate-note {
       font-size: 12px;
       color: var(--g400);
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
-    /* Calculator App */
-    .calc-app { display: none; }
-    .calc-app.is-visible { display: block; }
+    /* Calculator app */
+    .calc__app { display: none; }
+    .calc__app.visible { display: block; }
 
-    .calc-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .calc-header__eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--g400);
-      margin-bottom: 12px;
-    }
-
-    .calc-header__title {
-      font-size: clamp(26px, 3vw, 36px);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-
-    .calc-header__sub {
-      font-size: 15px;
-      color: var(--g500);
-      max-width: 460px;
-      margin: 0 auto;
-    }
-
-    /* Operation type selector */
-    .calc-types {
-      margin-bottom: 40px;
-    }
-
-    .calc-types__label {
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--g400);
-      margin-bottom: 12px;
-    }
-
-    .calc-types__grid {
+    /* Op type */
+    .calc__types {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
+      margin-bottom: 36px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .calc-type-btn {
-      padding: 13px 12px;
+    .calc__type-btn {
+      padding: 12px 10px;
       border: 1px solid var(--g100);
       background: var(--g25);
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 400;
       font-family: var(--font);
       color: var(--g500);
@@ -1040,9 +379,9 @@
       transition: all 0.15s;
     }
 
-    .calc-type-btn:hover { border-color: var(--g300); }
+    .calc__type-btn:hover { border-color: var(--g300); color: var(--black); }
 
-    .calc-type-btn.is-active {
+    .calc__type-btn.active {
       border-color: var(--black);
       background: var(--black);
       color: var(--white);
@@ -1050,1045 +389,879 @@
     }
 
     /* Sliders */
-    .calc-sliders { margin-bottom: 40px; }
-
-    .calc-slider {
-      margin-bottom: 24px;
+    .calc__sliders {
+      max-width: 680px;
+      margin: 0 auto 36px;
     }
 
-    .calc-slider__header {
+    .calc__slider { margin-bottom: 22px; }
+
+    .calc__slider-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
-    .calc-slider__label {
-      font-size: 13.5px;
-      font-weight: 400;
-      color: var(--g500);
-    }
+    .calc__slider-label { font-size: 13.5px; color: var(--g500); }
 
-    .calc-slider__val {
-      font-size: 20px;
+    .calc__slider-val {
+      font-size: 19px;
       font-weight: 600;
       color: var(--black);
       font-variant-numeric: tabular-nums;
     }
 
-    .calc-slider__help {
-      font-size: 12px;
-      color: var(--g400);
-      margin-bottom: 6px;
-    }
+    .calc__slider-help { font-size: 11.5px; color: var(--g400); margin-bottom: 5px; }
 
-    .calc-range {
+    .calc__range {
       width: 100%;
-      height: 5px;
+      height: 4px;
       -webkit-appearance: none;
       appearance: none;
       outline: none;
       cursor: pointer;
-      border-radius: 3px;
-      background: var(--g100);
+      border-radius: 2px;
     }
 
-    .calc-range::-webkit-slider-thumb {
+    .calc__range::-webkit-slider-thumb {
       -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       border-radius: 50%;
       background: var(--black);
       cursor: pointer;
       border: 3px solid var(--white);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
-    .calc-range::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
+    .calc__range::-moz-range-thumb {
+      width: 18px; height: 18px;
       border-radius: 50%;
       background: var(--black);
       cursor: pointer;
       border: 3px solid var(--white);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
-    /* Results */
-    .calc-divider {
+    /* Divider */
+    .calc__divider {
       height: 1px;
       background: var(--g100);
-      margin-bottom: 40px;
+      max-width: 680px;
+      margin: 0 auto 32px;
     }
 
-    .calc-results-label {
+    /* Results headline */
+    .calc__results-head {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 24px;
     }
 
-    .calc-results-label__eyebrow {
+    .calc__results-eyebrow {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--g400);
       margin-bottom: 6px;
     }
 
-    .calc-results-label__headline {
+    .calc__results-headline {
       font-size: clamp(20px, 2.5vw, 28px);
       font-weight: 600;
       letter-spacing: -0.02em;
-      margin-bottom: 28px;
     }
 
-    .calc-results-top {
+    /* Cards */
+    .calc__cards-primary {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 8px;
+      max-width: 680px;
+      margin: 0 auto 8px;
     }
 
-    .calc-results-bottom {
+    .calc__cards-secondary {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 680px;
+      margin: 0 auto 28px;
     }
 
-    .calc-card {
+    .calc__card {
       padding: 28px 20px;
       text-align: center;
       border: 1px solid var(--g100);
       background: var(--g25);
-      transition: background 0.2s;
     }
 
-    .calc-card:hover { background: var(--white); }
-
-    .calc-card--highlight {
+    .calc__card--dark {
       background: var(--black);
-      color: var(--white);
       border-color: var(--black);
     }
 
-    .calc-card--highlight:hover { background: var(--g900); }
-
-    .calc-card__value {
-      font-size: clamp(28px, 3vw, 38px);
+    .calc__card-val {
+      font-size: clamp(26px, 3vw, 36px);
       font-weight: 300;
       line-height: 1.1;
       letter-spacing: -0.03em;
       font-variant-numeric: tabular-nums;
+      color: var(--black);
     }
 
-    .calc-card--highlight .calc-card__value { color: var(--white); }
+    .calc__card--dark .calc__card-val { color: var(--white); }
 
-    .calc-card__label {
-      font-size: 11px;
+    .calc__card-lbl {
+      font-size: 10.5px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-top: 8px;
       color: var(--g400);
+      margin-top: 7px;
     }
 
-    .calc-card--highlight .calc-card__label { color: rgba(255,255,255,0.6); }
+    .calc__card--dark .calc__card-lbl { color: rgba(255,255,255,0.5); }
 
-    .calc-card__sub {
-      font-size: 12px;
+    .calc__card-sub {
+      font-size: 11.5px;
       color: var(--g400);
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
-    .calc-card--highlight .calc-card__sub { color: rgba(255,255,255,0.45); }
+    .calc__card--dark .calc__card-sub { color: rgba(255,255,255,0.35); }
 
-    /* Throughput callout */
-    .calc-throughput {
-      padding: 28px;
+    /* Throughput */
+    .calc__throughput {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      padding: 24px 32px;
       background: var(--black);
       color: var(--white);
-      text-align: center;
-      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
     }
 
-    .calc-throughput__num {
-      font-size: clamp(40px, 4vw, 56px);
+    .calc__throughput-num {
+      font-size: clamp(44px, 5vw, 60px);
       font-weight: 200;
+      letter-spacing: -0.05em;
       line-height: 1;
-      letter-spacing: -0.04em;
+      flex-shrink: 0;
     }
 
-    .calc-throughput__sub {
+    .calc__throughput-text {
       font-size: 14px;
-      color: rgba(255,255,255,0.55);
-      margin-top: 8px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
     }
 
-    /* Calculator CTA */
-    .calc-cta {
-      text-align: center;
-    }
+    /* Calc CTA */
+    .calc__cta { text-align: center; }
 
-    .calc-cta__link {
+    .calc__cta-btn {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-family: var(--font);
       font-size: 14.5px;
       font-weight: 500;
-      padding: 14px 40px;
+      font-family: var(--font);
+      padding: 14px 36px;
       border-radius: 100px;
       background: var(--black);
       color: var(--white);
-      transition: all 0.22s var(--ease-out);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
-    .calc-cta__link:hover {
+    .calc__cta-btn:hover {
       background: var(--g700);
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     }
 
-    .calc-cta__note {
-      font-size: 12px;
+    .calc__cta-note { font-size: 12px; color: var(--g400); margin-top: 10px; }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 100px var(--pad);
+      background: var(--g25);
+      border-top: 1px solid var(--g100);
+      border-bottom: 1px solid var(--g100);
+    }
+
+    .how__inner { max-width: var(--max); margin: 0 auto; }
+
+    .how__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--g400);
-      margin-top: 12px;
+      text-align: center;
+      margin-bottom: 48px;
     }
 
-    /* Calculator responsive */
-    @media (max-width: 640px) {
-      .calc-gate__form { flex-direction: column; }
-      .calc-types__grid { grid-template-columns: repeat(2, 1fr); }
-      .calc-results-top { grid-template-columns: 1fr; }
-      .calc-results-bottom { grid-template-columns: 1fr; }
+    .how__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--g100);
+      border: 1px solid var(--g100);
+      margin-bottom: 48px;
     }
 
-    /* =============================================
-       SCROLL REVEAL ANIMATION
-    ============================================= */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.75s var(--ease-out),
-                  transform 0.75s var(--ease-out);
+    .how__step {
+      background: var(--white);
+      padding: 48px 40px;
+      transition: background 0.2s;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
+    .how__step:hover { background: var(--white); }
+
+    .how__step-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g300);
+      margin-bottom: 20px;
     }
 
-    .reveal-d1 { transition-delay: 0.1s; }
-    .reveal-d2 { transition-delay: 0.2s; }
-    .reveal-d3 { transition-delay: 0.3s; }
-
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
-    @media (max-width: 1100px) {
-      :root { --pad-x: 40px; }
-
-      .hero__bottom,
-      .section__header,
-      .product-header,
-      .contact__grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .hero__actions { justify-content: flex-start; }
-
-      .stats__grid,
-      .waste-grid,
-      .benefits-grid,
-      .features-grid {
-        grid-template-columns: 1fr;
-        background: transparent;
-        outline: none;
-        gap: 0;
-      }
-
-      .stats__cell  { border-right: 0; border-bottom: var(--border); }
-      .waste-card   { border-bottom: 1px solid var(--g100); }
-      .benefit-card { border-bottom: 1px solid rgba(255,255,255,0.08); }
-      .feature-card { border-bottom: 1px solid var(--g100); }
-
-      .product-right { align-items: flex-start; }
-      .product-desc  { text-align: left; }
-
-      .problem__impact { flex-direction: column; gap: 24px; }
-      .impact__meta { text-align: left; }
-
-      .contact__left { position: static; }
-
-      .footer__inner { flex-direction: column; text-align: center; }
-      .footer__nav   { flex-wrap: wrap; justify-content: center; }
+    .how__icon {
+      width: 42px;
+      height: 42px;
+      background: var(--black);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
     }
 
-    @media (max-width: 640px) {
-      :root { --pad-x: 24px; }
+    .how__icon svg {
+      width: 20px; height: 20px;
+      fill: none; stroke: #fff;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-      .nav { padding: 0 var(--pad-x); }
-      .nav__links { display: none; }
+    .how__step-title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
 
-      .hero { padding: 110px var(--pad-x) 60px; }
+    .how__step-desc { font-size: 14px; color: var(--g500); line-height: 1.7; }
 
-      .form-row { grid-template-columns: 1fr; }
-      .form-panel { padding: 32px; }
+    .how__tagline {
+      text-align: center;
+      font-size: 16px;
+      color: var(--g500);
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto;
+    }
 
-      .section { padding: 80px var(--pad-x); }
+    .how__tagline strong { color: var(--black); font-weight: 500; }
 
-      .stats__cell { padding: 48px 32px; }
-      .waste-card,
-      .benefit-card,
-      .feature-card { padding: 36px 28px; }
+    /* ── CTA / CONTACT ── */
+    .contact {
+      padding: 100px var(--pad);
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact__inner { max-width: var(--max); margin: 0 auto; }
+
+    .contact__title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 36px;
+    }
+
+    .contact__btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 72px;
+      flex-wrap: wrap;
+    }
+
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      padding: 14px 32px;
+      border-radius: 100px;
+      background: var(--white);
+      color: var(--black);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-light:hover {
+      background: var(--g50);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      padding: 14px 32px;
+      border-radius: 100px;
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .contact__form-wrap {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 56px;
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .contact__form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .contact__field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .contact__field label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .contact__input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact__input:focus {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .contact__input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .contact__submit {
+      width: 100%;
+      padding: 14px;
+      margin-top: 4px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .contact__submit:hover { background: var(--g50); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.3);
+      padding: 28px var(--pad);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer__logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.04em;
+    }
+
+    .footer__nav { display: flex; gap: 24px; }
+
+    .footer__nav a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.2s;
+    }
+
+    .footer__nav a:hover { color: var(--white); }
+
+    .footer__copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+    /* ── RESPONSIVE (stage 3 additions) ── */
+    @media (max-width: 900px) {
+      .how__grid { grid-template-columns: 1fr; background: none; border: none; gap: 0; }
+      .how__step { border-bottom: 1px solid var(--g100); }
+      .how__step:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 600px) {
+      .contact__btns { flex-direction: column; align-items: stretch; }
+      .btn-light, .btn-ghost { justify-content: center; }
+      .footer { flex-direction: column; text-align: center; gap: 16px; }
+      .footer__nav { flex-wrap: wrap; justify-content: center; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      :root { --pad: 40px; }
+      .problem__grid { grid-template-columns: 1fr; background: none; border: none; gap: 0; }
+      .problem__stat { border-bottom: 1px solid var(--g100); }
+      .problem__stat:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --pad: 24px; }
+      .nav { padding: 0 var(--pad); }
     }
 
   </style>
 </head>
 <body>
 
-  <!-- ============================================
-       NAVIGATION
-  ============================================= -->
+  <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="#" class="nav__logo">Ficio</a>
-    <ul class="nav__links">
-      <li><a href="#problem">Food Waste</a></li>
-      <li><a href="#solution">Solution</a></li>
-      <li><a href="#product">Product</a></li>
-      <li><a href="#calculator">Calculator</a></li>
-    </ul>
-    <a href="#contact" class="nav__cta">Get In Touch</a>
+    <a href="#contact" class="nav__cta">Talk to Us</a>
   </nav>
 
-
-  <!-- ============================================
-       HERO
-  ============================================= -->
+  <!-- ══ SECTION 1: HERO ══ -->
   <section class="hero" id="home">
-
-    <div class="hero__top">
+    <div class="hero__inner">
       <div class="hero__badge">
-        <span class="hero__badge-dot"></span>
+        <span class="hero__dot"></span>
         Autonomous Kitchen AI
       </div>
-      <h1 class="hero__headline">
-        Autonomous<br>
-        <span class="outline">Kitchens</span><br>
-        For Restaurants.
-      </h1>
+      <h1 class="hero__h1">Creating food abundance<br>with embodied AI.</h1>
+      <p class="hero__sub">See how much more your kitchen could produce.</p>
+      <a href="#calculator" class="hero__cta">Open the Growth Calculator →</a>
     </div>
+  </section>
 
-    <div class="hero__bottom">
-      <p class="hero__sub">
-        Ficio uses embodied AI to eliminate food waste, cut labor costs by 80%, and ensure consistent quality — transforming how restaurants operate.
+  <!-- ══ SECTION 2: THE PROBLEM ══ -->
+  <section class="problem" id="problem">
+    <div class="problem__inner">
+      <div class="problem__grid">
+        <div class="problem__stat reveal">
+          <div class="problem__num">$120B</div>
+          <div class="problem__label">Lost annually to kitchen<br>labor turnover — globally</div>
+        </div>
+        <div class="problem__stat reveal d1">
+          <div class="problem__num">1B+</div>
+          <div class="problem__label">Tonnes of food wasted<br>every year</div>
+        </div>
+        <div class="problem__stat reveal d2">
+          <div class="problem__num">75%</div>
+          <div class="problem__label">Annual staff turnover<br>in food service</div>
+        </div>
+      </div>
+      <p class="problem__sentence reveal">
+        Every commercial kitchen — <strong>restaurants, hospitals, universities, commissaries</strong> — hits the same ceiling. Not enough hands, too much waste, capped output.
       </p>
-      <div class="hero__actions">
-        <a href="#contact" class="btn btn--dark">Reserve FicioPrep →</a>
-        <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="btn btn--outline">Schedule Demo ↗</a>
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- ============================================
-       TICKER
-  ============================================= -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker__track">
-      <!-- Set 1 -->
-      <span class="ticker__item"><strong>80%</strong> Labor Efficiency Gain <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>67%</strong> Faster Service Time <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>200%</strong> Quality Improvement <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>Zero</strong> Food Waste <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>22 Weeks</strong> ROI Payback <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>90%</strong> Accuracy Rate <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>$162B</strong> Industry Problem Solved <span class="ticker__sep"></span></span>
-      <span class="ticker__item">Computer Vision AI <span class="ticker__sep"></span></span>
-      <!-- Set 2 (duplicate for seamless loop) -->
-      <span class="ticker__item"><strong>80%</strong> Labor Efficiency Gain <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>67%</strong> Faster Service Time <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>200%</strong> Quality Improvement <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>Zero</strong> Food Waste <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>22 Weeks</strong> ROI Payback <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>90%</strong> Accuracy Rate <span class="ticker__sep"></span></span>
-      <span class="ticker__item"><strong>$162B</strong> Industry Problem Solved <span class="ticker__sep"></span></span>
-      <span class="ticker__item">Computer Vision AI <span class="ticker__sep"></span></span>
-    </div>
-  </div>
-
-
-  <!-- ============================================
-       STATS
-  ============================================= -->
-  <section class="stats">
-    <div class="stats__grid">
-
-      <div class="stats__cell reveal">
-        <div class="stats__index">01</div>
-        <div class="stats__num" data-target="80" data-suffix="%">0%</div>
-        <div class="stats__label">Labor Efficiency Gain</div>
-      </div>
-
-      <div class="stats__cell reveal reveal-d1">
-        <div class="stats__index">02</div>
-        <div class="stats__num" data-target="67" data-suffix="%">0%</div>
-        <div class="stats__label">Faster Service Time</div>
-      </div>
-
-      <div class="stats__cell reveal reveal-d2">
-        <div class="stats__index">03</div>
-        <div class="stats__num" data-target="200" data-suffix="%">0%</div>
-        <div class="stats__label">Quality Improvement</div>
-      </div>
-
     </div>
   </section>
 
+  <!-- ══ SECTION 3: CALCULATOR ══ -->
+  <section class="calculator" id="calculator">
+    <div class="calculator__inner">
 
-  <!-- ============================================
-       PROBLEM
-  ============================================= -->
-  <section class="section problem" id="problem">
-    <div class="section__inner">
-
-      <div class="section__header">
-        <div>
-          <div class="label">The Challenge</div>
-          <h2 class="section__title reveal" style="margin-top:20px">The Food<br>Waste Crisis</h2>
-        </div>
-        <p class="section__desc reveal">
-          The restaurant industry loses $162 billion annually to food waste. This isn't a people problem — it's an infrastructure problem. Outdated workflows, manual processes, and poor inventory systems are costing your business every single day.
-        </p>
+      <div class="calc__header">
+        <div class="calc__eyebrow">Growth Calculator</div>
+        <h2 class="calc__title">How much more could your kitchen make?</h2>
+        <p class="calc__sub">Adjust the inputs to match your operation and see real numbers.</p>
       </div>
 
-      <div class="waste-grid">
-        <div class="waste-card reveal">
-          <div class="waste-card__num">40%</div>
-          <div class="waste-card__title">Total Food Waste</div>
-          <div class="waste-card__desc">of all food in restaurants ends up as waste, drained through inefficient kitchen workflows and over-production</div>
-        </div>
-        <div class="waste-card reveal reveal-d1">
-          <div class="waste-card__num">25%</div>
-          <div class="waste-card__title">Ingredient Prep Waste</div>
-          <div class="waste-card__desc">lost during preparation and processing due to inconsistent cutting, portioning, and lack of quality checks</div>
-        </div>
-        <div class="waste-card reveal reveal-d2">
-          <div class="waste-card__num">30%</div>
-          <div class="waste-card__title">Inventory Spoilage</div>
-          <div class="waste-card__desc">from poor inventory management, leading to over-ordering and ingredient spoilage before it ever reaches a plate</div>
-        </div>
-      </div>
-
-      <div class="problem__impact reveal">
-        <div class="impact__statement">
-          Restaurants waste <strong>$162 billion</strong><br>every year. Ficio is built<br>to end that.
-        </div>
-        <div class="impact__meta">
-          <div class="impact__figure">$162B</div>
-          <div class="impact__caption">Annual Industry Loss</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ============================================
-       SOLUTION
-  ============================================= -->
-  <section class="section solution" id="solution">
-    <div class="section__inner">
-
-      <div class="section__header">
-        <div>
-          <div class="label">Our Solution</div>
-          <h2 class="section__title reveal" style="margin-top:20px">Revolutionizing<br>Kitchens with AI</h2>
-        </div>
-        <p class="section__desc reveal">
-          Autonomous kitchen software powered by embodied AI. From ingredient preparation to plating, Ficio transforms outdated kitchen workflows into efficient, automated, and data-driven processes that eliminate waste at the source.
-        </p>
-      </div>
-
-      <div class="benefits-grid">
-        <div class="benefit-card reveal">
-          <div class="benefit-card__idx">01</div>
-          <div class="benefit-card__value">Zero</div>
-          <div class="benefit-card__label">Food Waste</div>
-        </div>
-        <div class="benefit-card reveal reveal-d1">
-          <div class="benefit-card__idx">02</div>
-          <div class="benefit-card__value">90%</div>
-          <div class="benefit-card__label">Accuracy Rate</div>
-        </div>
-        <div class="benefit-card reveal reveal-d2">
-          <div class="benefit-card__idx">03</div>
-          <div class="benefit-card__value">22wk</div>
-          <div class="benefit-card__label">ROI Payback</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ============================================
-       PRODUCT
-  ============================================= -->
-  <section class="section product-section" id="product">
-    <div class="section__inner">
-
-      <div class="product-header">
-        <div>
-          <div class="label">The Product</div>
-          <h2 class="section__title reveal" style="margin-top:20px">Introducing<br>FicioPrep</h2>
-        </div>
-        <div class="product-right">
-          <p class="product-desc reveal">
-            The AI layer between ingredients and your kitchen. FicioPrep ensures zero food waste and consistent quality at 1/3 of the cost through computer vision and intelligent processing.
-          </p>
-          <a href="ficioprep.html" class="btn btn--dark reveal">Explore All Products →</a>
-        </div>
-      </div>
-
-      <div class="features-grid">
-
-        <div class="feature-card reveal">
-          <div class="feature-card__icon">✓</div>
-          <div class="feature-card__name">Quality Check</div>
-          <div class="feature-card__desc">200% accuracy improvement over manual inspection through real-time computer vision analysis</div>
-        </div>
-
-        <div class="feature-card reveal reveal-d1">
-          <div class="feature-card__icon">⚖</div>
-          <div class="feature-card__name">Weight Control</div>
-          <div class="feature-card__desc">Precision portioning and yield management to eliminate over-prepping waste across every shift</div>
-        </div>
-
-        <div class="feature-card reveal reveal-d2">
-          <div class="feature-card__icon">✦</div>
-          <div class="feature-card__name">Hygiene Control</div>
-          <div class="feature-card__desc">Automated hygiene monitoring with real-time alerts to keep your kitchen compliant and safe</div>
-        </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-card__icon">⬡</div>
-          <div class="feature-card__name">POS Integration</div>
-          <div class="feature-card__desc">Seamless two-way sync with your existing point-of-sale systems for unified data and forecasting</div>
-        </div>
-
-        <div class="feature-card reveal reveal-d1">
-          <div class="feature-card__icon">◎</div>
-          <div class="feature-card__name">Perishability Tracking</div>
-          <div class="feature-card__desc">AI-powered shelf life prediction to prioritize ingredients before spoilage, every single day</div>
-        </div>
-
-        <div class="feature-card reveal reveal-d2">
-          <div class="feature-card__icon">★</div>
-          <div class="feature-card__name">Quality Certified</div>
-          <div class="feature-card__desc">Certified quality output that meets or exceeds industry standards — every plate, every time</div>
-        </div>
-
-      </div>
-
-      <div class="product-cta-row">
-        <a href="ficioprep.html" class="btn btn--outline">View Full Product Suite →</a>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ============================================
-       GROWTH CALCULATOR
-  ============================================= -->
-  <section class="section calculator" id="calculator">
-    <div class="section__inner">
-
-      <!-- Email Gate -->
-      <div class="calc-gate" id="calcGate">
-        <div class="label">Growth Calculator</div>
-        <h2 class="calc-gate__title">See how much more your kitchen could make</h2>
-        <p class="calc-gate__sub">
-          Enter your email to access our interactive growth calculator and see real ROI projections for your operation.
-        </p>
-        <form class="calc-gate__form" id="gateForm">
-          <input class="calc-gate__input" type="email" id="gateEmail" placeholder="you@restaurant.com" required>
-          <button class="calc-gate__btn" type="submit">Access Calculator →</button>
+      <!-- Email gate -->
+      <div class="calc__gate" id="calcGate">
+        <form class="calc__gate-form" id="gateForm">
+          <input class="calc__gate-input" type="email" id="gateEmail" placeholder="Enter your email to unlock" required>
+          <button class="calc__gate-btn" type="submit">Unlock →</button>
         </form>
-        <p class="calc-gate__note">Free to use. No commitment required.</p>
+        <p class="calc__gate-note">Free to use. No commitment.</p>
       </div>
 
-      <!-- Calculator (hidden until email submitted) -->
-      <div class="calc-app" id="calcApp">
+      <!-- Calculator (revealed after email) -->
+      <div class="calc__app" id="calcApp">
 
-        <div class="calc-header">
-          <div class="calc-header__eyebrow">Growth Calculator</div>
-          <h2 class="calc-header__title">How much more could your kitchen make?</h2>
-          <p class="calc-header__sub">Adjust the sliders to match your operation and see the revenue you're leaving on the table.</p>
-        </div>
-
-        <!-- Operation Type Selector -->
-        <div class="calc-types">
-          <div class="calc-types__label">Your Operation</div>
-          <div class="calc-types__grid" id="calcTypes">
-            <button class="calc-type-btn is-active" data-type="restaurant" type="button">🍽️ Restaurant</button>
-            <button class="calc-type-btn" data-type="commissary" type="button">🏭 Commissary</button>
-            <button class="calc-type-btn" data-type="university" type="button">🎓 University</button>
-            <button class="calc-type-btn" data-type="hospital" type="button">🏥 Hospital</button>
-            <button class="calc-type-btn" data-type="ghost" type="button">👻 Ghost Kitchen</button>
-            <button class="calc-type-btn" data-type="catering" type="button">🎪 Catering</button>
-          </div>
+        <!-- Operation type -->
+        <div class="calc__types" id="calcTypes">
+          <button class="calc__type-btn active" data-type="restaurant" type="button">🍽️ Restaurant</button>
+          <button class="calc__type-btn" data-type="commissary" type="button">🏭 Commissary</button>
+          <button class="calc__type-btn" data-type="university" type="button">🎓 University</button>
+          <button class="calc__type-btn" data-type="hospital" type="button">🏥 Hospital</button>
+          <button class="calc__type-btn" data-type="ghost" type="button">👻 Ghost Kitchen</button>
+          <button class="calc__type-btn" data-type="catering" type="button">🎪 Catering</button>
         </div>
 
         <!-- Sliders -->
-        <div class="calc-sliders">
-
-          <div class="calc-slider">
-            <div class="calc-slider__header">
-              <span class="calc-slider__label">Meals served per day</span>
-              <span class="calc-slider__val" id="mealsVal">200</span>
+        <div class="calc__sliders">
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Meals served per day</span>
+              <span class="calc__slider-val" id="mealsVal">200</span>
             </div>
-            <input class="calc-range" type="range" id="mealsSlider" min="50" max="5000" step="50" value="200">
+            <input class="calc__range" type="range" id="mealsSlider" min="50" max="5000" step="50" value="200">
           </div>
-
-          <div class="calc-slider">
-            <div class="calc-slider__header">
-              <span class="calc-slider__label">Prep hours per day</span>
-              <span class="calc-slider__val" id="hoursVal">8 hrs</span>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Prep hours per day</span>
+              <span class="calc__slider-val" id="hoursVal">8 hrs</span>
             </div>
-            <input class="calc-range" type="range" id="hoursSlider" min="2" max="24" step="1" value="8">
+            <input class="calc__range" type="range" id="hoursSlider" min="2" max="24" step="1" value="8">
           </div>
-
-          <div class="calc-slider">
-            <div class="calc-slider__header">
-              <span class="calc-slider__label">Prep staff count</span>
-              <span class="calc-slider__val" id="staffVal">3</span>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Prep staff count</span>
+              <span class="calc__slider-val" id="staffVal">3</span>
             </div>
-            <input class="calc-range" type="range" id="staffSlider" min="1" max="20" step="1" value="3">
+            <input class="calc__range" type="range" id="staffSlider" min="1" max="20" step="1" value="3">
           </div>
-
-          <div class="calc-slider">
-            <div class="calc-slider__header">
-              <span class="calc-slider__label">Average hourly wage</span>
-              <span class="calc-slider__val" id="wageVal">$18/hr</span>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Average hourly wage</span>
+              <span class="calc__slider-val" id="wageVal">$18/hr</span>
             </div>
-            <input class="calc-range" type="range" id="wageSlider" min="12" max="35" step="1" value="18">
+            <input class="calc__range" type="range" id="wageSlider" min="12" max="35" step="1" value="18">
           </div>
-
-          <div class="calc-slider">
-            <div class="calc-slider__header">
-              <span class="calc-slider__label">Estimated food waste</span>
-              <span class="calc-slider__val" id="wasteVal">8%</span>
+          <div class="calc__slider">
+            <div class="calc__slider-row">
+              <span class="calc__slider-label">Estimated food waste</span>
+              <span class="calc__slider-val" id="wasteVal">8%</span>
             </div>
-            <div class="calc-slider__help">Industry average: 8–12% of food purchased</div>
-            <input class="calc-range" type="range" id="wasteSlider" min="2" max="20" step="1" value="8">
+            <div class="calc__slider-help">Industry average: 8–12% of food purchased</div>
+            <input class="calc__range" type="range" id="wasteSlider" min="2" max="20" step="1" value="8">
           </div>
-
         </div>
 
-        <div class="calc-divider"></div>
+        <div class="calc__divider"></div>
 
         <!-- Results -->
-        <div class="calc-results-label">
-          <div class="calc-results-label__eyebrow">Your Kitchen With Ficio</div>
-          <div class="calc-results-label__headline">
-            Unlock <span id="netGainHeadline">$0</span> in new annual value
+        <div class="calc__results-head">
+          <div class="calc__results-eyebrow">Your kitchen with Ficio</div>
+          <div class="calc__results-headline">Unlock <span id="netDisplay">$0</span> in new annual value</div>
+        </div>
+
+        <div class="calc__cards-primary">
+          <div class="calc__card calc__card--dark">
+            <div class="calc__card-val" id="extraMealsCard">0</div>
+            <div class="calc__card-lbl">Additional Meals / Day</div>
+            <div class="calc__card-sub">2.5× current throughput</div>
+          </div>
+          <div class="calc__card calc__card--dark">
+            <div class="calc__card-val" id="monthlyRevCard">$0</div>
+            <div class="calc__card-lbl">New Revenue / Month</div>
+            <div class="calc__card-sub" id="annualRevSub">$0 / year</div>
           </div>
         </div>
 
-        <div class="calc-results-top">
-          <div class="calc-card calc-card--highlight">
-            <div class="calc-card__value" id="revenueCard">$0</div>
-            <div class="calc-card__label">New Revenue Unlocked</div>
-            <div class="calc-card__sub" id="revenueSub">+0 meals/day</div>
+        <div class="calc__cards-secondary">
+          <div class="calc__card">
+            <div class="calc__card-val" id="paybackCard">0 wks</div>
+            <div class="calc__card-lbl">Payback Period</div>
+            <div class="calc__card-sub">At $1,800/mo</div>
           </div>
-          <div class="calc-card">
-            <div class="calc-card__value" id="paybackCard">0 wks</div>
-            <div class="calc-card__label">Payback Period</div>
-            <div class="calc-card__sub">At $1,800/mo</div>
+          <div class="calc__card">
+            <div class="calc__card-val" id="wasteLbsCard">0 lbs</div>
+            <div class="calc__card-lbl">Waste Eliminated / Year</div>
+            <div class="calc__card-sub">Annual food waste saved</div>
           </div>
-        </div>
-
-        <div class="calc-results-bottom">
-          <div class="calc-card">
-            <div class="calc-card__value" id="laborCard">$0</div>
-            <div class="calc-card__label">Labor Reinvested</div>
-            <div class="calc-card__sub">Annual savings</div>
-          </div>
-          <div class="calc-card">
-            <div class="calc-card__value" id="wasteCard">$0</div>
-            <div class="calc-card__label">Waste Eliminated</div>
-            <div class="calc-card__sub" id="wasteSub">0% reduction</div>
-          </div>
-          <div class="calc-card">
-            <div class="calc-card__value" id="weeklyCard">$0</div>
-            <div class="calc-card__label">Weekly Net Gain</div>
-            <div class="calc-card__sub">After Ficio cost</div>
+          <div class="calc__card">
+            <div class="calc__card-val" id="laborCard">$0</div>
+            <div class="calc__card-lbl">Labor Reinvested</div>
+            <div class="calc__card-sub">Annual savings</div>
           </div>
         </div>
 
-        <!-- Throughput callout -->
-        <div class="calc-throughput">
-          <div class="calc-throughput__num">2.5x</div>
-          <div class="calc-throughput__sub">More prep output per square foot — same kitchen, same footprint</div>
+        <div class="calc__throughput">
+          <div class="calc__throughput-num">2.5×</div>
+          <div class="calc__throughput-text">More prep output per square foot — same kitchen, same footprint</div>
         </div>
 
-        <!-- CTA -->
-        <div class="calc-cta">
-          <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="calc-cta__link">
+        <div class="calc__cta">
+          <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="calc__cta-btn">
             Let's unlock your kitchen →
           </a>
-          <p class="calc-cta__note">Free consultation. No commitment.</p>
+          <p class="calc__cta-note">Free consultation. No commitment.</p>
         </div>
 
       </div>
     </div>
   </section>
 
+  <!-- ══ SECTION 4: HOW IT WORKS ══ -->
+  <section class="how" id="how">
+    <div class="how__inner">
+      <div class="how__eyebrow">How It Works</div>
+      <div class="how__grid">
 
-  <!-- ============================================
-       CONTACT / FORM
-  ============================================= -->
-  <section class="section contact" id="contact">
-    <div class="section__inner">
-      <div class="contact__grid">
-
-        <!-- Left column: info -->
-        <div class="contact__left">
-          <div class="label">Get In Touch</div>
-          <h2 class="contact__title reveal">Reserve<br>FicioPrep</h2>
-          <p class="contact__sub reveal">
-            Be among the first restaurants to transform your kitchen with autonomous AI. Fill out the form and our team will be in touch within 24 hours.
-          </p>
-          <div class="contact__info reveal">
-            <div class="contact__info-item">
-              <label>Email</label>
-              <a href="mailto:ymelek@ficio.org">ymelek@ficio.org</a>
-            </div>
-            <div class="contact__info-item">
-              <label>Response Time</label>
-              <span>Within 24 hours</span>
-            </div>
+        <div class="how__step reveal">
+          <div class="how__step-num">01</div>
+          <div class="how__icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
           </div>
+          <div class="how__step-title">Prep</div>
+          <div class="how__step-desc">AI-powered ingredient analysis and autonomous preparation — consistent quality, every cycle, at scale.</div>
         </div>
 
-        <!-- Right column: form -->
-        <div class="form-panel reveal">
-          <div class="form-panel__title">Reserve Your Spot</div>
-          <form action="https://formspree.io/f/mrboogea" method="POST">
-
-            <div class="form-row">
-              <div class="form-field">
-                <label class="form-label" for="restaurant">Restaurant Name</label>
-                <input class="form-input" type="text" id="restaurant" name="restaurant" placeholder="Your restaurant" required>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="name">Your Name</label>
-                <input class="form-input" type="text" id="name" name="name" placeholder="Full name" required>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <label class="form-label" for="email">Email Address</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="you@restaurant.com" required>
-            </div>
-
-            <div class="form-field">
-              <label class="form-label" for="phone">Phone Number</label>
-              <input class="form-input" type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
-            </div>
-
-            <button type="submit" class="form-submit">Reserve Now →</button>
-
-          </form>
-
-          <div class="form-divider">
-            <p class="form-divider__text">Prefer to talk first?</p>
-            <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="form-divider__link">
-              Schedule a 30-min consultation ↗
-            </a>
+        <div class="how__step reveal d1">
+          <div class="how__step-num">02</div>
+          <div class="how__icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           </div>
+          <div class="how__step-title">Learn</div>
+          <div class="how__step-desc">Every cycle makes the system smarter — demand patterns, waste drivers, and quality benchmarks improve continuously.</div>
+        </div>
+
+        <div class="how__step reveal d2">
+          <div class="how__step-num">03</div>
+          <div class="how__icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <div class="how__step-title">Scale</div>
+          <div class="how__step-desc">Serve more people without adding headcount or square footage. More output, same kitchen, zero waste.</div>
         </div>
 
       </div>
+      <p class="how__tagline reveal">
+        <strong>FicioPrep plugs into your existing kitchen.</strong> No renovation. No retraining. Just more output.
+      </p>
     </div>
   </section>
 
+  <!-- ══ SECTION 5: CTA / CONTACT ══ -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
 
-  <!-- ============================================
-       FOOTER
-  ============================================= -->
+      <h2 class="contact__title">Ready to unlock your<br>kitchen's full capacity?</h2>
+
+      <div class="contact__btns">
+        <a href="#calculator" class="btn-light">Try the Calculator →</a>
+        <a href="https://calendly.com/ymeleka-ficio/30min" target="_blank" rel="noopener" class="btn-ghost">Schedule a Call ↗</a>
+      </div>
+
+      <div class="contact__form-wrap">
+        <span class="contact__form-label">Or drop us a message</span>
+        <form action="https://formspree.io/f/mrboogea" method="POST">
+          <div class="contact__field">
+            <label for="c-name">Name</label>
+            <input class="contact__input" type="text" id="c-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="contact__field">
+            <label for="c-email">Email</label>
+            <input class="contact__input" type="email" id="c-email" name="email" placeholder="you@restaurant.com" required>
+          </div>
+          <div class="contact__field">
+            <label for="c-org">Restaurant / Organization</label>
+            <input class="contact__input" type="text" id="c-org" name="organization" placeholder="Where do you work?">
+          </div>
+          <button type="submit" class="contact__submit">Send Message →</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
   <footer class="footer">
-    <div class="footer__inner">
-      <div class="footer__logo">Ficio</div>
-      <ul class="footer__nav">
-        <li><a href="#problem">Food Waste</a></li>
-        <li><a href="#solution">Solution</a></li>
-        <li><a href="#product">Product</a></li>
-        <li><a href="ficioprep.html">Products</a></li>
-        <li><a href="mailto:ymelek@ficio.org">Contact</a></li>
-      </ul>
-      <div class="footer__copy">© 2025 Ficio. Autonomous Kitchens for Everyone.</div>
-    </div>
+    <div class="footer__logo">Ficio</div>
+    <nav class="footer__nav">
+      <a href="ficioprep.html">Products</a>
+      <a href="mailto:ymelek@ficio.org">Contact</a>
+    </nav>
+    <div class="footer__copy">© 2025 Ficio. Autonomous Kitchens for Everyone.</div>
   </footer>
 
-
-  <!-- ============================================
-       JAVASCRIPT
-  ============================================= -->
   <script>
-
-    // ─── Navbar: add .is-scrolled on scroll ───────────────────────────
+    // Nav scroll
     const nav = document.getElementById('nav');
-    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
 
+    // Scroll reveal
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    // ─── Scroll reveal ─────────────────────────────────────────────────
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -50px 0px' }
-    );
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
 
+    // ── CALCULATOR ──────────────────────────────────────────────────────
+    (function () {
+      const RAAS_ANNUAL  = 1800 * 12;
+      const EFFICIENCY   = 0.80;
+      const THROUGHPUT   = 2.5;
+      const WASTE_CUT    = 0.60;
+      const MEAL_REV     = 12;
+      const LBS_PER_MEAL = 1.5;
+      const WEEKS        = 52;
 
-    // ─── Count-up animation ────────────────────────────────────────────
-    function animateCount(el) {
-      const target = parseInt(el.dataset.target, 10);
-      const suffix = el.dataset.suffix || '';
-      const duration = 1600;
-      let startTime = null;
-
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
-        el.textContent = Math.round(eased * target) + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target + suffix;
-      }
-
-      requestAnimationFrame(step);
-    }
-
-    const countObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            countObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-
-    document.querySelectorAll('[data-target]').forEach(el => countObserver.observe(el));
-
-
-    // ─── Growth Calculator ───────────────────────────────────────────────
-    (function() {
-      const RAAS_MONTHLY = 1800;
-      const EFFICIENCY = 0.80;
-      const THROUGHPUT = 2.5;
-      const WASTE_CUT = 0.60;
-      const MEAL_REV = 12;
-      const WEEKS = 52;
-
-      const OP_DEFAULTS = {
-        restaurant: { meals: 200, hours: 8,  staff: 3,  wage: 18, waste: 8  },
-        commissary: { meals: 800, hours: 16, staff: 8,  wage: 17, waste: 10 },
-        university: { meals: 1500,hours: 20, staff: 12, wage: 16, waste: 12 },
-        hospital:   { meals: 600, hours: 14, staff: 6,  wage: 17, waste: 9  },
-        ghost:      { meals: 400, hours: 10, staff: 4,  wage: 18, waste: 7  },
-        catering:   { meals: 500, hours: 12, staff: 5,  wage: 17, waste: 11 },
+      const DEFAULTS = {
+        restaurant: { meals: 200,  hours: 8,  staff: 3,  wage: 18, waste: 8  },
+        commissary: { meals: 800,  hours: 16, staff: 8,  wage: 17, waste: 10 },
+        university: { meals: 1500, hours: 20, staff: 12, wage: 16, waste: 12 },
+        hospital:   { meals: 600,  hours: 14, staff: 6,  wage: 17, waste: 9  },
+        ghost:      { meals: 400,  hours: 10, staff: 4,  wage: 18, waste: 7  },
+        catering:   { meals: 500,  hours: 12, staff: 5,  wage: 17, waste: 11 },
       };
 
-      // DOM refs
-      const gate     = document.getElementById('calcGate');
-      const app      = document.getElementById('calcApp');
-      const gateForm = document.getElementById('gateForm');
-      const gateEmail= document.getElementById('gateEmail');
-      const typeBtns = document.querySelectorAll('.calc-type-btn');
-
-      const sl = {
-        meals: document.getElementById('mealsSlider'),
-        hours: document.getElementById('hoursSlider'),
-        staff: document.getElementById('staffSlider'),
-        wage:  document.getElementById('wageSlider'),
-        waste: document.getElementById('wasteSlider'),
-      };
-
-      const valEls = {
-        meals: document.getElementById('mealsVal'),
-        hours: document.getElementById('hoursVal'),
-        staff: document.getElementById('staffVal'),
-        wage:  document.getElementById('wageVal'),
-        waste: document.getElementById('wasteVal'),
-      };
-
-      const resultEls = {
-        netHeadline: document.getElementById('netGainHeadline'),
-        revenue:     document.getElementById('revenueCard'),
-        revenueSub:  document.getElementById('revenueSub'),
-        payback:     document.getElementById('paybackCard'),
-        labor:       document.getElementById('laborCard'),
-        wasteCard:   document.getElementById('wasteCard'),
-        wasteSub:    document.getElementById('wasteSub'),
-        weekly:      document.getElementById('weeklyCard'),
-      };
-
-      // Animated number targets (for smooth transitions)
-      const targets = {};
-      const current = {};
-      let animFrame = null;
-
-      function fmtCurrency(n) {
-        if (n >= 1000000) return '$' + (n / 1e6).toFixed(1) + 'M';
+      function fmt(n) {
+        if (n >= 1e6)  return '$' + (n / 1e6).toFixed(1) + 'M';
         if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
         return '$' + Math.round(n);
       }
 
-      function updateSliderTrack(input) {
-        const pct = ((input.value - input.min) / (input.max - input.min)) * 100;
-        input.style.background = 'linear-gradient(to right, #000 0%, #000 ' + pct + '%, #e8e8e8 ' + pct + '%, #e8e8e8 100%)';
+      function fmtN(n) {
+        if (n >= 1e6)  return (n / 1e6).toFixed(1) + 'M';
+        if (n >= 1000) return Math.round(n / 1000) + 'K';
+        return Math.round(n).toString();
       }
 
-      function setSliderValues(type) {
-        const d = OP_DEFAULTS[type];
-        sl.meals.value = d.meals;
-        sl.hours.value = d.hours;
-        sl.staff.value = d.staff;
-        sl.wage.value  = d.wage;
-        sl.waste.value = d.waste;
-        updateDisplayValues();
+      const $ = id => document.getElementById(id);
+
+      const sliders = {
+        meals: $('mealsSlider'), hours: $('hoursSlider'),
+        staff: $('staffSlider'), wage:  $('wageSlider'), waste: $('wasteSlider'),
+      };
+
+      function setTrack(inp) {
+        const pct = ((inp.value - inp.min) / (inp.max - inp.min)) * 100;
+        inp.style.background = `linear-gradient(to right,#000 ${pct}%,#e8e8e8 ${pct}%)`;
       }
 
-      function updateDisplayValues() {
-        valEls.meals.textContent = Number(sl.meals.value).toLocaleString();
-        valEls.hours.textContent = sl.hours.value + ' hrs';
-        valEls.staff.textContent = sl.staff.value;
-        valEls.wage.textContent  = '$' + sl.wage.value + '/hr';
-        valEls.waste.textContent = sl.waste.value + '%';
-        Object.values(sl).forEach(updateSliderTrack);
+      function syncDisplay() {
+        $('mealsVal').textContent = Number(sliders.meals.value).toLocaleString();
+        $('hoursVal').textContent = sliders.hours.value + ' hrs';
+        $('staffVal').textContent = sliders.staff.value;
+        $('wageVal').textContent  = '$' + sliders.wage.value + '/hr';
+        $('wasteVal').textContent = sliders.waste.value + '%';
+        Object.values(sliders).forEach(setTrack);
       }
 
-      function calculate() {
-        const meals = Number(sl.meals.value);
-        const hours = Number(sl.hours.value);
-        const staff = Number(sl.staff.value);
-        const wage  = Number(sl.wage.value);
-        const waste = Number(sl.waste.value);
+      function recalc() {
+        const meals = +sliders.meals.value, hours = +sliders.hours.value,
+              staff = +sliders.staff.value, wage  = +sliders.wage.value,
+              waste = +sliders.waste.value;
 
-        const annualLabor   = staff * wage * hours * 365;
-        const laborSaved    = annualLabor * EFFICIENCY;
-        const extraMeals    = Math.round(meals * (THROUGHPUT - 1));
-        const newRevenue    = extraMeals * MEAL_REV * 365;
-        const wasteCost     = meals * MEAL_REV * (waste / 100) * 365;
-        const wasteRecovered= wasteCost * WASTE_CUT;
-        const totalValue    = newRevenue + laborSaved + wasteRecovered;
-        const ficioCost     = RAAS_MONTHLY * 12;
-        const netGain       = totalValue - ficioCost;
-        const weeklyGain    = netGain / WEEKS;
-        const paybackWeeks  = Math.round(ficioCost / (totalValue / WEEKS));
-        const wasteReduction= Math.round(waste * WASTE_CUT);
+        const extraMeals  = Math.round(meals * (THROUGHPUT - 1));
+        const newRevYear  = extraMeals * MEAL_REV * 365;
+        const newRevMonth = newRevYear / 12;
+        const laborSaved  = staff * wage * hours * 365 * EFFICIENCY;
+        const wasteLbs    = Math.round(meals * LBS_PER_MEAL * (waste / 100) * 365 * WASTE_CUT);
+        const wasteSaved  = meals * MEAL_REV * (waste / 100) * 365 * WASTE_CUT;
+        const netGain     = newRevYear + laborSaved + wasteSaved - RAAS_ANNUAL;
+        const payback     = Math.round(RAAS_ANNUAL / ((newRevYear + laborSaved + wasteSaved) / WEEKS));
 
-        resultEls.netHeadline.textContent = fmtCurrency(netGain);
-        resultEls.revenue.textContent     = fmtCurrency(newRevenue);
-        resultEls.revenueSub.textContent  = '+' + extraMeals.toLocaleString() + ' meals/day';
-        resultEls.payback.textContent     = paybackWeeks + ' wks';
-        resultEls.labor.textContent       = fmtCurrency(laborSaved);
-        resultEls.wasteCard.textContent   = fmtCurrency(wasteRecovered);
-        resultEls.wasteSub.textContent    = wasteReduction + '% reduction';
-        resultEls.weekly.textContent      = fmtCurrency(weeklyGain);
+        $('extraMealsCard').textContent = fmtN(extraMeals);
+        $('monthlyRevCard').textContent = fmt(newRevMonth);
+        $('annualRevSub').textContent   = fmt(newRevYear) + ' / year';
+        $('paybackCard').textContent    = payback + ' wks';
+        $('wasteLbsCard').textContent   = fmtN(wasteLbs) + ' lbs';
+        $('laborCard').textContent      = fmt(laborSaved);
+        $('netDisplay').textContent     = fmt(netGain);
       }
 
-      // Event: operation type buttons
-      typeBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          typeBtns.forEach(function(b) { b.classList.remove('is-active'); });
-          btn.classList.add('is-active');
-          setSliderValues(btn.dataset.type);
-          calculate();
+      function setDefaults(type) {
+        const d = DEFAULTS[type];
+        sliders.meals.value = d.meals; sliders.hours.value = d.hours;
+        sliders.staff.value = d.staff; sliders.wage.value  = d.wage;
+        sliders.waste.value = d.waste;
+        syncDisplay(); recalc();
+      }
+
+      document.querySelectorAll('.calc__type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.calc__type-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          setDefaults(btn.dataset.type);
         });
       });
 
-      // Event: sliders
-      Object.values(sl).forEach(function(input) {
-        input.addEventListener('input', function() {
-          updateDisplayValues();
-          calculate();
-        });
+      Object.values(sliders).forEach(inp => {
+        inp.addEventListener('input', () => { syncDisplay(); recalc(); });
       });
 
-      // Email gate
-      function showCalculator() {
-        gate.style.display = 'none';
-        app.classList.add('is-visible');
-        updateDisplayValues();
-        calculate();
+      function showCalc() {
+        $('calcGate').style.display = 'none';
+        $('calcApp').classList.add('visible');
+        syncDisplay(); recalc();
       }
 
-      // Check if already unlocked
       if (localStorage.getItem('ficio_calc_email')) {
-        showCalculator();
+        showCalc();
+      } else {
+        syncDisplay(); recalc();
       }
 
-      gateForm.addEventListener('submit', function(e) {
+      $('gateForm').addEventListener('submit', e => {
         e.preventDefault();
-        var email = gateEmail.value;
-        if (!email) return;
-
-        // Submit email to Formspree
+        const email = $('gateEmail').value;
         fetch('https://formspree.io/f/mrboogea', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            email: email,
-            _subject: 'Calculator Access Request',
-            source: 'growth-calculator'
-          })
-        }).catch(function() { /* still show calculator even if request fails */ });
-
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email, _subject: 'Calculator Access', source: 'growth-calculator' })
+        }).catch(() => {});
         localStorage.setItem('ficio_calc_email', email);
-        showCalculator();
+        showCalc();
       });
-
-      // Initial render (for pre-unlocked state)
-      updateDisplayValues();
-      calculate();
     })();
-
-
-    // ─── Smooth scroll for anchor links ────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        const id = link.getAttribute('href');
-        if (id === '#') return;
-        const target = document.querySelector(id);
-        if (target) {
-          e.preventDefault();
-          const offset = 68; // nav height
-          const top = target.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
-      });
-    });
-
   </script>
 </body>
 </html>
