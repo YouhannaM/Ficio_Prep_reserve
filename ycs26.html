@@ -823,7 +823,7 @@
     const GATE_CODE     = 'YCS26';
     // ──────────────────────────────────────────────────────────────────────
 
-    let authed = !!localStorage.getItem('ficio_ycs26_auth');
+    let authed = !!localStorage.getItem('ficio_ycs26_auth_v2');
     const $    = id => document.getElementById(id);
 
     if (authed) revealPage();
@@ -931,7 +931,7 @@
       }
 
       authed = true;
-      localStorage.setItem('ficio_ycs26_auth', '1');
+      localStorage.setItem('ficio_ycs26_auth_v2', '1');
       closeModal();
       revealPage();
     }
