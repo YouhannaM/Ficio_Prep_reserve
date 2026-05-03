@@ -803,7 +803,7 @@
           <span class="label modal-field-label">Verification code</span>
           <input type="text" id="codeInput" placeholder="Enter code" maxlength="8" autocomplete="one-time-code">
         </label>
-        <div class="modal-error" id="verifyError">Enter the code you received (min 4 characters).</div>
+        <div class="modal-error" id="verifyError">Incorrect code. Check the email from the Ficio team.</div>
         <button class="modal-submit" id="verifyBtn">Unlock →</button>
         <button class="modal-close" id="backBtn">← Back</button>
       </div>
@@ -815,38 +815,30 @@
 
 <script>
   (function () {
+    // ── ACCESS CREDENTIALS ─────────────────────────────────────────────────
+    // Share GATE_PASSWORD with partners upfront so they can submit a request.
+    // After reviewing the Formspree email, reply to the partner with GATE_CODE.
+    // Change both values whenever you want to rotate access.
+    const GATE_PASSWORD = 'ficio-s26';
+    const GATE_CODE     = 'YCS26';
+    // ──────────────────────────────────────────────────────────────────────
+
     let authed = !!localStorage.getItem('ficio_ycs26_auth');
-    let stage  = 'login';
+    const $    = id => document.getElementById(id);
 
-    const $ = id => document.getElementById(id);
+    if (authed) revealPage();
 
-    // Restore previous session — skip gate entirely
-    if (authed) {
-      revealPage();
-    }
-
-    // Gate landing button → open modal
     $('landingAccessBtn').addEventListener('click', openModal);
-
-    // Modal actions
     $('loginBtn').addEventListener('click', handleLogin);
     $('verifyBtn').addEventListener('click', handleVerify);
     $('loginCloseBtn').addEventListener('click', closeModal);
     $('backBtn').addEventListener('click', () => setStage('login'));
-
-    // Backdrop click closes
-    $('modalBg').addEventListener('click', e => {
-      if (e.target === $('modalBg')) closeModal();
-    });
-
-    // Enter-key shortcuts
+    $('modalBg').addEventListener('click', e => { if (e.target === $('modalBg')) closeModal(); });
     $('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
     $('codeInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleVerify(); });
-
-    // Clear error state on input
-    $('emailInput').addEventListener('input', () => $('emailInput').classList.remove('error'));
-    $('passwordInput').addEventListener('input', () => $('passwordInput').classList.remove('error'));
-    $('codeInput').addEventListener('input', () => $('codeInput').classList.remove('error'));
+    ['emailInput', 'passwordInput', 'codeInput'].forEach(id => {
+      $(id).addEventListener('input', () => { $(id).classList.remove('error'); });
+    });
 
     function openModal() {
       $('modalBg').style.display = 'flex';
@@ -858,47 +850,83 @@
     }
 
     function setStage(s) {
-      stage = s;
       $('stageLogin').style.display  = s === 'login'  ? '' : 'none';
       $('stageVerify').style.display = s === 'verify' ? '' : 'none';
       $('loginError').style.display  = 'none';
       $('verifyError').style.display = 'none';
     }
 
+    function showError(id, msg) {
+      const el = $(id);
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
     function handleLogin() {
       const email    = $('emailInput').value.trim();
-      const password = $('passwordInput').value;
+      const password = $('passwordInput').value.trim();
 
       if (!email || !password) {
         if (!email)    $('emailInput').classList.add('error');
         if (!password) $('passwordInput').classList.add('error');
-        $('loginError').style.display = 'block';
+        showError('loginError', 'Please enter your email and password.');
         return;
       }
 
-      // Capture email via Formspree → routes to ymelek@ficio.org
+      // Block wrong password before hitting Formspree
+      if (password !== GATE_PASSWORD) {
+        $('passwordInput').classList.add('error');
+        showError('loginError', 'Incorrect password. Contact the Ficio team for access credentials.');
+        return;
+      }
+
+      // Submit to Formspree and wait for confirmation
+      const btn = $('loginBtn');
+      btn.disabled    = true;
+      btn.textContent = 'Sending…';
+
       fetch('https://formspree.io/f/mrboogea', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           email,
+          _replyto: email,
           _subject: 'YC S26 Partner Access Request',
-          source: 'ycs26-gate'
+          source:   'ycs26-gate'
         })
-      }).catch(() => {});
-
-      $('verifyMsg').textContent =
-        'We sent a verification code to ' + email + '. Enter it below to unlock.';
-
-      setStage('verify');
-      $('codeInput').focus();
+      })
+      .then(res => {
+        btn.disabled    = false;
+        btn.textContent = 'Continue →';
+        if (res.ok) {
+          $('verifyMsg').innerHTML =
+            'Request received for <strong>' + email + '</strong>. ' +
+            'The Ficio team will email your verification code shortly.';
+          setStage('verify');
+          $('codeInput').focus();
+        } else {
+          showError('loginError', 'Submission failed. Please try again or email ymelek@ficio.org directly.');
+        }
+      })
+      .catch(() => {
+        btn.disabled    = false;
+        btn.textContent = 'Continue →';
+        showError('loginError', 'Network error. Check your connection and try again.');
+      });
     }
 
     function handleVerify() {
-      const code = $('codeInput').value.trim();
-      if (code.length < 4) {
+      const code = $('codeInput').value.trim().toUpperCase();
+
+      if (!code) {
         $('codeInput').classList.add('error');
-        $('verifyError').style.display = 'block';
+        showError('verifyError', 'Enter the verification code from the Ficio team.');
+        return;
+      }
+
+      if (code !== GATE_CODE.toUpperCase()) {
+        $('codeInput').classList.add('error');
+        showError('verifyError', 'Incorrect code. Check the email from the Ficio team.');
         return;
       }
 
@@ -909,8 +937,8 @@
     }
 
     function revealPage() {
-      $('gateLanding').style.display  = 'none';
-      $('mainContent').style.display  = '';
+      $('gateLanding').style.display = 'none';
+      $('mainContent').style.display = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   })();
