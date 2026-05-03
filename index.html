@@ -87,6 +87,17 @@
       transform: translateY(-1px);
     }
 
+    .nav__yc {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g400);
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav__yc:hover { color: var(--black); }
+
     /* ── HERO ── */
     .hero {
       min-height: 100svh;
@@ -925,7 +936,10 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="#" class="nav__logo">Ficio</a>
-    <a href="#contact" class="nav__cta">Talk to Us</a>
+    <div style="display:flex;align-items:center;gap:28px">
+      <a href="ycs26.html" class="nav__yc">YC S26 ↗</a>
+      <a href="#contact" class="nav__cta">Talk to Us</a>
+    </div>
   </nav>
 
   <!-- ══ SECTION 1: HERO ══ -->
@@ -1187,6 +1201,7 @@
     <div class="footer__logo">Ficio</div>
     <nav class="footer__nav">
       <a href="ficioprep.html">Products</a>
+      <a href="ycs26.html">YC S26</a>
       <a href="mailto:ymelek@ficio.org">Contact</a>
     </nav>
     <div class="footer__copy">© 2025 Ficio. Autonomous Kitchens for Everyone.</div>
