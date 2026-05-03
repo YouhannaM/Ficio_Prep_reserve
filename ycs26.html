@@ -334,6 +334,43 @@
     /* ── MISC ── */
     .blink { animation: blink 1s step-end infinite; }
     @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── GATE LANDING ── */
+    .gate-landing {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 32px; text-align: center;
+    }
+    .gate-landing__mark {
+      width: 48px; height: 48px; background: #000; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 900; font-size: 24px;
+      border-radius: 50%; margin: 0 auto 28px;
+    }
+    .gate-landing__title {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 800;
+      font-size: clamp(64px, 14vw, 136px); line-height: 0.9; letter-spacing: -0.045em;
+      margin-bottom: 28px;
+    }
+    .gate-landing__title em { font-style: italic; font-weight: 300; }
+    .gate-landing__sub {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7;
+      opacity: 0.45; max-width: 380px; margin: 0 auto 52px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .gate-landing__btn {
+      background: #000; color: #fff; padding: 20px 36px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 600; border: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 14px;
+      transition: opacity 0.15s;
+    }
+    .gate-landing__btn:hover { opacity: 0.72; }
+    .gate-landing__note {
+      margin-top: 20px; font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; opacity: 0.28; text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
@@ -341,15 +378,33 @@
 
   <div class="grain"></div>
 
+  <!-- GATE LANDING (hidden after auth) -->
+  <div class="gate-landing" id="gateLanding">
+    <div>
+      <div class="gate-landing__mark">fi</div>
+      <div class="label" style="opacity:0.4;margin-bottom:32px">
+        <span class="blink">●</span>&nbsp;&nbsp;Filing No. 001 — YC S26 — May 2026
+      </div>
+      <h1 class="gate-landing__title">Partner<br><em>access.</em></h1>
+      <p class="gate-landing__sub">Confidential. This file contains Ficio's YC application, traction data, team bios, and operating system. Verified access only.</p>
+      <button class="gate-landing__btn" id="landingAccessBtn">
+        Request Access <span style="font-family:'Fraunces',serif;font-style:italic;font-size:18px">→</span>
+      </button>
+      <div class="gate-landing__note">Email · verification code required</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT (revealed after auth) -->
+  <div id="mainContent" style="display:none">
+
   <!-- NAV -->
   <nav class="nav">
     <div style="display:flex;align-items:center;gap:14px">
       <span class="logo-mark">fi</span>
       <span class="mono" style="font-size:12px;letter-spacing:0.15em;text-transform:uppercase;font-weight:600">Ficio, Inc.</span>
     </div>
-    <div class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;display:flex;gap:24px;align-items:center">
-      <span style="opacity:0.5">YC&nbsp;S26&nbsp;Application</span>
-      <button class="nav-access-btn" id="navGateBtn">Partner Access →</button>
+    <div class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.45">
+      YC&nbsp;S26&nbsp;·&nbsp;Confidential
     </div>
   </nav>
 
@@ -647,29 +702,8 @@
     </div>
   </section>
 
-  <!-- GATE CTA -->
-  <section class="gate-cta">
-    <div>
-      <div class="label" style="color:#fff;opacity:0.5;margin-bottom:24px">§ 06 · For Partners</div>
-      <h2>
-        The <em style="font-style:italic;font-weight:300">full file</em><br>is behind the gate.
-      </h2>
-      <p style="font-size:16px;line-height:1.5;opacity:0.75;max-width:480px;margin-top:24px">
-        Our YC application, the operating system we run the company on, customer-call corpus, financial model, and hardware deep dive. Verified access only.
-      </p>
-    </div>
-    <div>
-      <button class="gate-btn" id="ctaGateBtn">
-        Request Partner Access <span class="arrow">→</span>
-      </button>
-      <div class="mono" style="font-size:11px;opacity:0.4;margin-top:16px;letter-spacing:0.1em">
-        Email · verification code required
-      </div>
-    </div>
-  </section>
-
-  <!-- GATED CONTENT (hidden until verified) -->
-  <section class="gated-section" id="gatedContent" style="display:none;border-top:3px solid #000;background:#fff">
+  <!-- § 06 · HOW WE OPERATE -->
+  <section class="gated-section" style="border-top:3px solid #000;background:#fff">
     <div class="section-head">
       <div class="label">※ Verified · Confidential</div>
       <div>
@@ -736,6 +770,8 @@
     </div>
   </footer>
 
+  </div><!-- /.mainContent -->
+
   <!-- GATE MODAL -->
   <div class="modal-bg" id="modalBg" style="display:none" role="dialog" aria-modal="true" aria-label="Partner access gate">
     <div class="modal" id="modalInner">
@@ -782,14 +818,15 @@
     let authed = !!localStorage.getItem('ficio_ycs26_auth');
     let stage  = 'login';
 
-    const $  = id => document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
-    // Restore previous session
-    if (authed) showGated();
+    // Restore previous session — skip gate entirely
+    if (authed) {
+      revealPage();
+    }
 
-    // Wire up open triggers
-    $('navGateBtn').addEventListener('click', openModal);
-    $('ctaGateBtn').addEventListener('click', openModal);
+    // Gate landing button → open modal
+    $('landingAccessBtn').addEventListener('click', openModal);
 
     // Modal actions
     $('loginBtn').addEventListener('click', handleLogin);
@@ -806,13 +843,12 @@
     $('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
     $('codeInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleVerify(); });
 
-    // Clear error highlight on input
+    // Clear error state on input
     $('emailInput').addEventListener('input', () => $('emailInput').classList.remove('error'));
     $('passwordInput').addEventListener('input', () => $('passwordInput').classList.remove('error'));
     $('codeInput').addEventListener('input', () => $('codeInput').classList.remove('error'));
 
     function openModal() {
-      if (authed) { scrollToGated(); return; }
       $('modalBg').style.display = 'flex';
       $('emailInput').focus();
     }
@@ -869,16 +905,13 @@
       authed = true;
       localStorage.setItem('ficio_ycs26_auth', '1');
       closeModal();
-      showGated();
-      scrollToGated();
+      revealPage();
     }
 
-    function showGated() {
-      $('gatedContent').style.display = '';
-    }
-
-    function scrollToGated() {
-      $('gatedContent').scrollIntoView({ behavior: 'smooth' });
+    function revealPage() {
+      $('gateLanding').style.display  = 'none';
+      $('mainContent').style.display  = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   })();
 </script>
