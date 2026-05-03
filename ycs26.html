@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficio — YC S26 Application</title>
+  <meta name="description" content="Ficio YC S26 application — autonomous kitchen robotics creating food abundance.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600;1,9..144,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #fff; color: #000; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .ficio-root { font-family: 'Fraunces', Georgia, serif; }
+
+    .mono {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      letter-spacing: -0.01em;
+    }
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      font-weight: 500;
+    }
+
+    /* Grain overlay */
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 100;
+      opacity: 0.04; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .rule       { border-top: 1px solid #000; }
+    .rule-thick { border-top: 3px solid #000; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: #fff; border-bottom: 1px solid #000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 32px;
+    }
+    .logo-mark {
+      width: 32px; height: 32px; background: #000; color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 900; font-size: 18px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .nav-access-btn {
+      background: #000; color: #fff; border: none;
+      padding: 10px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 600; cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .nav-access-btn:hover { opacity: 0.75; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 32px 0;
+      display: grid; grid-template-columns: 1fr; gap: 32px;
+    }
+    @media (min-width: 900px) {
+      .hero { grid-template-columns: 1.4fr 1fr; gap: 64px; padding: 120px 64px 0; }
+    }
+    .hero-headline {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.92;
+      font-size: clamp(56px, 11vw, 148px);
+    }
+    .hero-headline em { font-style: italic; font-weight: 300; }
+    .hero-meta {
+      display: flex; flex-direction: column; justify-content: flex-end; gap: 24px;
+      padding-bottom: 8px;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap { margin-top: 80px; }
+    .marquee-strip {
+      background: #000; color: #fff;
+      padding: 18px 0; overflow: hidden;
+      border-top: 1px solid #000; border-bottom: 1px solid #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .marquee-track { display: inline-block; animation: marquee 38s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .marquee-track span { padding: 0 32px; }
+    .marquee-dot {
+      display: inline-block; width: 6px; height: 6px;
+      background: #fff; border-radius: 50%; vertical-align: middle;
+    }
+
+    /* ── TRACTION GRID ── */
+    .traction-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      border-top: 1px solid #000;
+    }
+    @media (min-width: 900px) { .traction-grid { grid-template-columns: repeat(4, 1fr); } }
+    .traction-cell {
+      padding: 40px 28px;
+      border-right: 1px solid #000; border-bottom: 1px solid #000;
+    }
+    @media (min-width: 900px) { .traction-cell:nth-child(4n) { border-right: none; } }
+    .traction-cell:last-child { border-right: none; }
+    .traction-num {
+      font-family: 'Fraunces', serif; font-weight: 800;
+      font-size: clamp(48px, 6vw, 88px); line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .traction-label { margin-top: 12px; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 80px 32px; }
+    @media (min-width: 900px) { .section { padding: 120px 64px; } }
+
+    .section-head {
+      display: grid; grid-template-columns: 1fr; gap: 12px;
+      margin-bottom: 56px; align-items: end;
+    }
+    @media (min-width: 900px) {
+      .section-head { grid-template-columns: 200px 1fr; gap: 64px; }
+    }
+    .section-title {
+      font-family: 'Fraunces', serif; font-weight: 800;
+      font-size: clamp(40px, 6vw, 88px); line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+    .section-title em { font-style: italic; font-weight: 300; }
+
+    /* ── TIMELINE ── */
+    .timeline-row {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 24px; padding: 28px 0;
+      border-top: 1px solid #000; align-items: start;
+    }
+    @media (min-width: 900px) {
+      .timeline-row { grid-template-columns: 140px 200px 1fr; gap: 48px; }
+    }
+    .timeline-row:last-child { border-bottom: 1px solid #000; }
+    .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding-top: 4px; }
+    .timeline-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em; }
+    .timeline-desc { font-size: 16px; line-height: 1.5; max-width: 640px; opacity: 0.78; }
+
+    /* ── VISION ── */
+    .vision-block {
+      padding: 80px 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 300; font-style: italic;
+      font-size: clamp(28px, 4vw, 56px);
+      line-height: 1.15; letter-spacing: -0.02em;
+      max-width: 1100px;
+    }
+    .vision-block strong { font-style: normal; font-weight: 800; }
+
+    /* ── PILLARS ── */
+    .pillars { display: grid; grid-template-columns: 1fr; margin-top: 0; }
+    @media (min-width: 900px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+    .pillar { padding: 40px 32px; border-top: 1px solid #000; }
+    @media (min-width: 900px) {
+      .pillar { border-top: none; border-left: 1px solid #000; }
+      .pillar:first-child { border-left: none; }
+    }
+    .pillar-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; opacity: 0.5; }
+    .pillar-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 28px; margin: 16px 0 12px; letter-spacing: -0.02em; }
+    .pillar-desc { font-size: 15px; line-height: 1.5; opacity: 0.7; }
+
+    /* ── WHY NOW ── */
+    .why-now {
+      background: #000; color: #fff;
+      padding: 100px 32px;
+    }
+    @media (min-width: 900px) { .why-now { padding: 140px 64px; } }
+    .why-now .section-title { color: #fff; }
+    .why-now .label { color: #fff; }
+    .why-now-row {
+      padding: 32px 0; border-top: 1px solid #fff;
+      display: grid; grid-template-columns: 60px 1fr; gap: 32px;
+    }
+    .why-now-row:last-child { border-bottom: 1px solid #fff; }
+    .why-now-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .why-now-desc { font-size: 16px; line-height: 1.5; opacity: 0.75; max-width: 720px; }
+
+    /* ── CUSTOMERS ── */
+    .customers {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      border-top: 1px solid #000;
+    }
+    @media (min-width: 900px) { .customers { grid-template-columns: repeat(4, 1fr); } }
+    .customer-cell {
+      padding: 48px 28px;
+      border-right: 1px solid #000; border-bottom: 1px solid #000;
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 200px;
+    }
+    @media (min-width: 900px) { .customer-cell:nth-child(4n) { border-right: none; } }
+    .customer-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .customer-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid; grid-template-columns: 1fr;
+      border-top: 1px solid #000;
+    }
+    @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+    .team-cell {
+      padding: 40px 28px;
+      border-bottom: 1px solid #000; border-right: 1px solid #000;
+    }
+    @media (min-width: 900px) { .team-cell:nth-child(3n) { border-right: none; } }
+    .team-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+    .team-role { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 6px; opacity: 0.7; }
+    .team-prior { margin-top: 16px; font-size: 14px; line-height: 1.5; }
+    .team-prior strong { font-weight: 600; }
+
+    /* ── GATE CTA ── */
+    .gate-cta {
+      background: #000; color: #fff;
+      padding: 100px 32px;
+      display: grid; grid-template-columns: 1fr; gap: 32px;
+    }
+    @media (min-width: 900px) {
+      .gate-cta { grid-template-columns: 1.5fr 1fr; padding: 140px 64px; gap: 64px; align-items: center; }
+    }
+    .gate-cta h2 {
+      font-family: 'Fraunces', serif; font-weight: 800;
+      font-size: clamp(40px, 5.5vw, 80px); line-height: 0.95;
+      letter-spacing: -0.04em; margin: 0;
+    }
+    .gate-btn {
+      background: #fff; color: #000;
+      padding: 22px 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 600; border: none; cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex; align-items: center; gap: 16px;
+    }
+    .gate-btn:hover { background: transparent; color: #fff; outline: 1px solid #fff; }
+    .gate-btn .arrow { font-family: 'Fraunces', serif; font-style: italic; font-size: 18px; }
+
+    /* ── GATED CONTENT ── */
+    .gated-section { padding: 80px 32px; }
+    @media (min-width: 900px) { .gated-section { padding: 120px 64px; } }
+
+    .ops-grid {
+      display: grid; grid-template-columns: 1fr;
+      border-top: 1px solid #000;
+    }
+    @media (min-width: 900px) { .ops-grid { grid-template-columns: repeat(2, 1fr); } }
+    .ops-cell {
+      padding: 48px 32px;
+      border-bottom: 1px solid #000; border-right: 1px solid #000;
+    }
+    @media (min-width: 900px) { .ops-cell:nth-child(2n) { border-right: none; } }
+    .ops-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; opacity: 0.4; }
+    .ops-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 32px; letter-spacing: -0.025em; margin: 12px 0; }
+    .ops-desc { font-size: 16px; line-height: 1.55; max-width: 540px; }
+    .ops-tag {
+      display: inline-block; margin-top: 20px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 6px 12px; border: 1px solid #000;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 60px 32px 40px;
+      border-top: 3px solid #000;
+      display: grid; grid-template-columns: 1fr; gap: 24px;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.05em;
+    }
+    @media (min-width: 900px) { .footer { grid-template-columns: repeat(4, 1fr); } }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200; padding: 24px;
+    }
+    .modal {
+      background: #fff; max-width: 480px; width: 100%;
+      padding: 48px 40px; border: 1px solid #000;
+    }
+    .modal h3 {
+      font-family: 'Fraunces', serif; font-weight: 800;
+      font-size: 36px; letter-spacing: -0.03em; line-height: 1;
+      margin: 0 0 8px;
+    }
+    .modal-sub { font-size: 14px; line-height: 1.5; opacity: 0.7; margin: 0 0 32px; }
+    .modal-field { display: block; margin-bottom: 24px; }
+    .modal-field-label { display: block; margin-bottom: 8px; }
+    .modal input {
+      width: 100%; padding: 14px 0;
+      background: transparent; border: none; border-bottom: 1px solid #000;
+      font-family: 'JetBrains Mono', monospace; font-size: 15px;
+      outline: none; color: #000; transition: border-bottom-color 0.15s;
+    }
+    .modal input:focus { border-bottom-width: 2px; }
+    .modal input.error { border-bottom-color: #c00; }
+    .modal-submit {
+      width: 100%; padding: 18px;
+      background: #000; color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 600; border: none; cursor: pointer; margin-top: 16px;
+      transition: opacity 0.15s;
+    }
+    .modal-submit:hover { opacity: 0.82; }
+    .modal-submit:disabled { opacity: 0.45; cursor: default; }
+    .modal-close {
+      background: none; border: none; cursor: pointer;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      margin-top: 20px; opacity: 0.5; display: block; padding: 6px 0;
+      transition: opacity 0.15s;
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-error {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      letter-spacing: 0.1em; color: #c00; margin-top: 10px;
+      display: none;
+    }
+
+    /* ── MISC ── */
+    .blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── GATE LANDING ── */
+    .gate-landing {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 32px; text-align: center;
+    }
+    .gate-landing__mark {
+      width: 48px; height: 48px; background: #000; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 900; font-size: 24px;
+      border-radius: 50%; margin: 0 auto 28px;
+    }
+    .gate-landing__title {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 800;
+      font-size: clamp(64px, 14vw, 136px); line-height: 0.9; letter-spacing: -0.045em;
+      margin-bottom: 28px;
+    }
+    .gate-landing__title em { font-style: italic; font-weight: 300; }
+    .gate-landing__sub {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7;
+      opacity: 0.45; max-width: 380px; margin: 0 auto 52px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .gate-landing__btn {
+      background: #000; color: #fff; padding: 20px 36px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 600; border: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 14px;
+      transition: opacity 0.15s;
+    }
+    .gate-landing__btn:hover { opacity: 0.72; }
+    .gate-landing__note {
+      margin-top: 20px; font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; opacity: 0.28; text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+<div class="ficio-root">
+
+  <div class="grain"></div>
+
+  <!-- GATE LANDING (hidden after auth) -->
+  <div class="gate-landing" id="gateLanding">
+    <div>
+      <div class="gate-landing__mark">fi</div>
+      <div class="label" style="opacity:0.4;margin-bottom:32px">
+        <span class="blink">●</span>&nbsp;&nbsp;Filing No. 001 — YC S26 — May 2026
+      </div>
+      <h1 class="gate-landing__title">Partner<br><em>access.</em></h1>
+      <p class="gate-landing__sub">Confidential. This file contains Ficio's YC application, traction data, team bios, and operating system. Verified access only.</p>
+      <button class="gate-landing__btn" id="landingAccessBtn">
+        Request Access <span style="font-family:'Fraunces',serif;font-style:italic;font-size:18px">→</span>
+      </button>
+      <div class="gate-landing__note">Email · verification code required</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT (revealed after auth) -->
+  <div id="mainContent" style="display:none">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:14px">
+      <span class="logo-mark">fi</span>
+      <span class="mono" style="font-size:12px;letter-spacing:0.15em;text-transform:uppercase;font-weight:600">Ficio, Inc.</span>
+    </div>
+    <div class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.45">
+      YC&nbsp;S26&nbsp;·&nbsp;Confidential
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="label" style="margin-bottom:32px">
+        <span class="blink">●</span>&nbsp;&nbsp;Filing No. 001 — May 2026
+      </div>
+      <h1 class="hero-headline">
+        Accelerating <em>food</em><br>
+        abundance with <em>robotics.</em>
+      </h1>
+    </div>
+    <div class="hero-meta">
+      <div>
+        <div class="label" style="margin-bottom:16px;opacity:0.5">Thesis</div>
+        <p style="font-size:19px;line-height:1.45;font-family:'Fraunces',serif;font-weight:400">
+          Commercial kitchens are a <strong>$1.5T industry where half lose money.</strong> We build drop-in robotics that prep food at &lt;3% the cost of traditional automation — turning every kitchen into a 24/7 production node.
+        </p>
+      </div>
+      <div class="rule" style="padding-top:20px">
+        <div class="label" style="opacity:0.5">Stage</div>
+        <div class="mono" style="font-size:14px;font-weight:500;margin-top:8px">
+          Pre-seed · Proto v4 testing · Deployment by end of August 2026
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-strip">
+      <div class="marquee-track">
+        <span>Universal Robots</span><span class="marquee-dot"></span>
+        <span>NVIDIA Inception</span><span class="marquee-dot"></span>
+        <span>MassRobotics</span><span class="marquee-dot"></span>
+        <span>REV Hardware Accelerator</span><span class="marquee-dot"></span>
+        <span>Cornell · Blackstone LaunchPad</span><span class="marquee-dot"></span>
+        <span>Hilton LOI</span><span class="marquee-dot"></span>
+        <span>Mazra Restaurant Group</span><span class="marquee-dot"></span>
+        <span>Universal Robots</span><span class="marquee-dot"></span>
+        <span>NVIDIA Inception</span><span class="marquee-dot"></span>
+        <span>MassRobotics</span><span class="marquee-dot"></span>
+        <span>REV Hardware Accelerator</span><span class="marquee-dot"></span>
+        <span>Cornell · Blackstone LaunchPad</span><span class="marquee-dot"></span>
+        <span>Hilton LOI</span><span class="marquee-dot"></span>
+        <span>Mazra Restaurant Group</span><span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACTION -->
+  <div class="traction-grid">
+    <div class="traction-cell">
+      <div class="traction-num">75+</div>
+      <div class="label traction-label">Customer interviews</div>
+    </div>
+    <div class="traction-cell">
+      <div class="traction-num">3</div>
+      <div class="label traction-label">LOIs secured</div>
+    </div>
+    <div class="traction-cell">
+      <div class="traction-num">2</div>
+      <div class="label traction-label">LOIs signed</div>
+    </div>
+    <div class="traction-cell">
+      <div class="traction-num">~90<span style="font-size:0.5em">%</span></div>
+      <div class="label traction-label">AI accuracy validated</div>
+    </div>
+  </div>
+
+  <!-- § 01 · VELOCITY -->
+  <section class="section">
+    <div class="section-head">
+      <div class="label">§ 01 · Velocity</div>
+      <div>
+        <h2 class="section-title">Eight months.<br>Four prototypes.<br><em>Deployment in August.</em></h2>
+      </div>
+    </div>
+    <div>
+      <div class="timeline-row">
+        <div class="timeline-date">SEP 2025</div>
+        <div class="timeline-title">Idea + Alpha 1</div>
+        <div class="timeline-desc">$60K raised. 30 customer interviews. First LOIs signed within 30 days of incorporation.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">OCT 2025</div>
+        <div class="timeline-title">Proto 2 — full rebuild</div>
+        <div class="timeline-desc">Hardware and AI stack rewritten from scratch after customer feedback. Second iteration validated multi-modal vision pipeline.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">NOV 2025</div>
+        <div class="timeline-title">MassRobotics admission</div>
+        <div class="timeline-desc">Accepted into the Boston robotics ecosystem. Began full-time relocation of operations.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">FEB 2026</div>
+        <div class="timeline-title">UR + NVIDIA + REV</div>
+        <div class="timeline-desc">Universal Robots loan agreement. NVIDIA Inception membership. Accepted to REV Hardware Accelerator AgTech track.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">APR 2026</div>
+        <div class="timeline-title">Proto v4 — CAD complete</div>
+        <div class="timeline-desc">Production-intent mechanical and electrical design finalized. Custom end-effectors, feeding mechanism, and cutting system locked for fabrication.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">MAY 2026</div>
+        <div class="timeline-title">Full-time at MassRobotics</div>
+        <div class="timeline-desc">Founding team going full-time on Ficio. Living together at C-House in Boston. Operating out of MassRobotics — eating, sleeping, and shipping in the same building.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">JUN — JUL 2026</div>
+        <div class="timeline-title">Proto v4 testing</div>
+        <div class="timeline-desc">Three production-intent units fabricated through REV. End-to-end testing on customer ingredients. AI stack validated against real kitchen variance.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-date">AUG 2026</div>
+        <div class="timeline-title">First customer deployment</div>
+        <div class="timeline-desc">FicioPrep deployed in commercial kitchens by end of August. First revenue. First fleet data feeding the AI loop.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- § 02 · VISION -->
+  <section class="section" style="border-top:3px solid #000">
+    <div class="section-head">
+      <div class="label">§ 02 · Vision</div>
+      <div>
+        <h2 class="section-title">Where this <em>goes.</em></h2>
+      </div>
+    </div>
+    <div class="vision-block">
+      Kitchens that operate <strong>just-in-time</strong> — where every ingredient is prepped seconds before it's needed, at <strong>Michelin-grade quality,</strong> with <strong>nanometer-precision</strong> consistency, and an optimization layer that matches idle capacity to live demand across a continent.
+    </div>
+    <div class="rule-thick"></div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01 / Wedge</div>
+        <div class="pillar-title">FicioPrep</div>
+        <div class="pillar-desc">Drop-in ingredient prep with multi-modal AI quality control. ~90% classification accuracy on potatoes alone.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02 / Expansion</div>
+        <div class="pillar-title">FicioChef</div>
+        <div class="pillar-desc">Generalized cooking — searing, stirring, frying. The same AI brain, different end-effector.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03 / Platform</div>
+        <div class="pillar-title">Kitchen OS</div>
+        <div class="pillar-desc">Idle kitchens become a 24/7 production network. Off-hours capacity rented to ghost brands and delivery platforms.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- § 03 · WHY NOW -->
+  <section class="why-now">
+    <div class="section-head">
+      <div class="label">§ 03 · Timing</div>
+      <div>
+        <h2 class="section-title">Why <em>now</em>.</h2>
+      </div>
+    </div>
+    <div>
+      <div class="why-now-row">
+        <div class="mono" style="font-size:13px;opacity:0.5">01</div>
+        <div>
+          <div class="why-now-title">VLA models crossed the threshold</div>
+          <div class="why-now-desc">Vision-language-action models can now generalize across food objects without per-SKU training. Two years ago this was a research demo. Today it runs on a Jetson at the edge.</div>
+        </div>
+      </div>
+      <div class="why-now-row">
+        <div class="mono" style="font-size:13px;opacity:0.5">02</div>
+        <div>
+          <div class="why-now-title">Kitchen labor structurally broken</div>
+          <div class="why-now-desc">75% turnover. $218B in food waste annually. Operators are no longer asking <em>if</em> they should automate — they're asking who can deploy first.</div>
+        </div>
+      </div>
+      <div class="why-now-row">
+        <div class="mono" style="font-size:13px;opacity:0.5">03</div>
+        <div>
+          <div class="why-now-title">Hardware finally affordable</div>
+          <div class="why-now-desc">Collaborative arms at commodity prices. Custom end-effectors at $7.5K COGS. We deliver the same outcome as a $1M install for $1,500/month.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- § 04 · CUSTOMERS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="label">§ 04 · Demand</div>
+      <div>
+        <h2 class="section-title">Who's <em>asking</em>.</h2>
+      </div>
+    </div>
+    <div class="customers">
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Hilton</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">Global hospitality</div>
+        </div>
+        <div class="customer-status">⎯ LOI signed</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Mazra</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">Restaurant group</div>
+        </div>
+        <div class="customer-status">⎯ LOI signed</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Calla / HGI</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">Monterey hotel</div>
+        </div>
+        <div class="customer-status">⎯ Pilot signed</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Bakersfield</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">Commissary kitchen</div>
+        </div>
+        <div class="customer-status">⎯ Pilot signed</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Marriott</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">In conversation</div>
+        </div>
+        <div class="customer-status">⎯ Active outreach</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">UCLA Dining</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">University foodservice</div>
+        </div>
+        <div class="customer-status">⎯ Active outreach</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Cornell Dining</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">University foodservice</div>
+        </div>
+        <div class="customer-status">⎯ Active outreach</div>
+      </div>
+      <div class="customer-cell">
+        <div>
+          <div class="customer-name">Boston Airport</div>
+          <div style="font-size:13px;opacity:0.6;margin-top:4px">Commissary network</div>
+        </div>
+        <div class="customer-status">⎯ Intro confirmed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- § 05 · TEAM -->
+  <section class="section" style="border-top:3px solid #000">
+    <div class="section-head">
+      <div class="label">§ 05 · Operators</div>
+      <div>
+        <h2 class="section-title">Built by people who've <em>shipped this before</em>.</h2>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="team-cell">
+        <div class="team-name">Youhanna Meleka</div>
+        <div class="team-role">Co-founder · CEO</div>
+        <div class="team-prior"><strong>Tesla Top Talent 2024.</strong> Architected end-to-end manufacturing optimization that saved $43M. Cornell M.Eng. — Photonics &amp; Quantum Engineering. 7+ years manufacturing.</div>
+      </div>
+      <div class="team-cell">
+        <div class="team-name">David Farag</div>
+        <div class="team-role">Co-founder · AI / EE</div>
+        <div class="team-prior"><strong>Google at 18.</strong> Reduced ARCore app size by 20%. Built three functional robots and won UCLA robotics competition as a freshman. Self-taught programmer at 12.</div>
+      </div>
+      <div class="team-cell">
+        <div class="team-name">Ahmed Rashad</div>
+        <div class="team-role">Co-founder · Mech / Controls</div>
+        <div class="team-prior">Led full-stack design and instrumentation for $100M+ industrial projects. Currently leads a 45-person technical team through commissioning operations.</div>
+      </div>
+      <div class="team-cell">
+        <div class="team-name">Matthew Gerges</div>
+        <div class="team-role">Founding · ML / Mechatronics</div>
+        <div class="team-prior">Apple. Built RailFlow, a custom power-path analysis tool saving 160+ engineering hours per cycle. Pre-silicon hardware emulation lead. Waterloo.</div>
+      </div>
+      <div class="team-cell">
+        <div class="team-name">Daniel Bishara</div>
+        <div class="team-role">Founding · EE / SWE</div>
+        <div class="team-prior">Tesla — optimized Optimus motor control, doubling throughput. Apple iPhone failure analysis and power integrity. Waterloo.</div>
+      </div>
+      <div class="team-cell" style="background:#000;color:#fff">
+        <div style="font-family:'Fraunces',serif;font-weight:800;font-size:32px;letter-spacing:-0.03em;line-height:1">Why us.</div>
+        <div style="font-size:14px;line-height:1.55;margin-top:16px;opacity:0.85">Manufacturing depth from Tesla. AI depth from Google and Apple. Hardware shipped, not whitepapered. Maniacal urgency to end hunger.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- § 06 · HOW WE OPERATE -->
+  <section class="gated-section" style="border-top:3px solid #000;background:#fff">
+    <div class="section-head">
+      <div class="label">※ Verified · Confidential</div>
+      <div>
+        <h2 class="section-title">How we <em>operate</em>.</h2>
+      </div>
+    </div>
+    <p style="font-size:19px;line-height:1.5;max-width:720px;font-family:'Fraunces',serif;font-weight:400;margin-bottom:64px">
+      Ficio is an AI-first company. Every customer call, research paper, and decision is logged, embedded, and queryable. Our institutional memory compounds while competitors forget.
+    </p>
+    <div class="ops-grid">
+      <div class="ops-cell">
+        <div class="ops-num">01</div>
+        <div class="ops-title">Company Brain</div>
+        <div class="ops-desc">A unified RAG layer over every meeting, document, and Slack thread. Any team member can ask "what did we decide on UR IP terms" and get a sourced answer in seconds.</div>
+        <div class="ops-tag">Internal · Live</div>
+      </div>
+      <div class="ops-cell">
+        <div class="ops-num">02</div>
+        <div class="ops-title">CREST</div>
+        <div class="ops-desc">Our framework for converting cutting-edge research into shipped product. We read papers, extract methods, prototype on internal datasets, and deploy what works to FicioPrep — weekly cadence.</div>
+        <div class="ops-tag">Research → Production</div>
+      </div>
+      <div class="ops-cell">
+        <div class="ops-num">03</div>
+        <div class="ops-title">AI Sales</div>
+        <div class="ops-desc">Every customer call is transcribed, analyzed, and surfaced as a dashboard. Who we talked to, what we learned, what objections recurred, and how the next call should be calibrated.</div>
+        <div class="ops-tag">Outreach Engine</div>
+      </div>
+      <div class="ops-cell">
+        <div class="ops-num">04</div>
+        <div class="ops-title">AI Supply Chain</div>
+        <div class="ops-desc">Bill-of-materials sourcing, vendor outreach, and lead-time tracking automated end to end. Manufacturing depth turned into a software loop.</div>
+        <div class="ops-tag">Continuous Cost Advantage</div>
+      </div>
+    </div>
+    <div style="margin-top:80px;padding:40px;background:#000;color:#fff">
+      <div class="label" style="color:#fff;opacity:0.5">Next</div>
+      <div style="font-family:'Fraunces',serif;font-weight:700;font-size:32px;letter-spacing:-0.02em;margin-top:12px;margin-bottom:16px">
+        The full YC application, financial model, and hardware deep dive load below.
+      </div>
+      <div class="mono" style="font-size:12px;opacity:0.6;letter-spacing:0.1em">
+        [ Placeholder · attach docs in production build ]
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      <div class="logo-mark" style="margin-bottom:12px">fi</div>
+      <div style="opacity:0.6">Ficio, Inc. — Delaware</div>
+    </div>
+    <div>
+      <div style="opacity:0.4;margin-bottom:8px">Mission</div>
+      <div>Creating food abundance with embodied AI.</div>
+    </div>
+    <div>
+      <div style="opacity:0.4;margin-bottom:8px">Contact</div>
+      <a href="mailto:founders@ficio.org">founders@ficio.org</a>
+    </div>
+    <div>
+      <div style="opacity:0.4;margin-bottom:8px">Filing</div>
+      <div>YC S26 · Pre-seed open</div>
+    </div>
+  </footer>
+
+  </div><!-- /.mainContent -->
+
+  <!-- GATE MODAL -->
+  <div class="modal-bg" id="modalBg" style="display:none" role="dialog" aria-modal="true" aria-label="Partner access gate">
+    <div class="modal" id="modalInner">
+
+      <!-- Step 1: Email + password -->
+      <div id="stageLogin">
+        <div class="label" style="margin-bottom:12px;opacity:0.5">Step 01 / 02</div>
+        <h3>Partner access.</h3>
+        <p class="modal-sub">Verified email required. Access is governed by mutual NDA.</p>
+        <label class="modal-field">
+          <span class="label modal-field-label">Email</span>
+          <input type="email" id="emailInput" placeholder="partner@firm.com" autocomplete="email">
+        </label>
+        <label class="modal-field">
+          <span class="label modal-field-label">Access password</span>
+          <input type="password" id="passwordInput" placeholder="••••••••" autocomplete="current-password">
+        </label>
+        <div class="modal-error" id="loginError">Please enter your email and password.</div>
+        <button class="modal-submit" id="loginBtn">Continue →</button>
+        <button class="modal-close" id="loginCloseBtn">Close</button>
+      </div>
+
+      <!-- Step 2: Verification code -->
+      <div id="stageVerify" style="display:none">
+        <div class="label" style="margin-bottom:12px;opacity:0.5">Step 02 / 02</div>
+        <h3>Verify.</h3>
+        <p class="modal-sub" id="verifyMsg">Check your email for the verification code.</p>
+        <label class="modal-field">
+          <span class="label modal-field-label">Verification code</span>
+          <input type="text" id="codeInput" placeholder="Enter code" maxlength="8" autocomplete="one-time-code">
+        </label>
+        <div class="modal-error" id="verifyError">Enter the code you received (min 4 characters).</div>
+        <button class="modal-submit" id="verifyBtn">Unlock →</button>
+        <button class="modal-close" id="backBtn">← Back</button>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /.ficio-root -->
+
+<script>
+  (function () {
+    let authed = !!localStorage.getItem('ficio_ycs26_auth');
+    let stage  = 'login';
+
+    const $ = id => document.getElementById(id);
+
+    // Restore previous session — skip gate entirely
+    if (authed) {
+      revealPage();
+    }
+
+    // Gate landing button → open modal
+    $('landingAccessBtn').addEventListener('click', openModal);
+
+    // Modal actions
+    $('loginBtn').addEventListener('click', handleLogin);
+    $('verifyBtn').addEventListener('click', handleVerify);
+    $('loginCloseBtn').addEventListener('click', closeModal);
+    $('backBtn').addEventListener('click', () => setStage('login'));
+
+    // Backdrop click closes
+    $('modalBg').addEventListener('click', e => {
+      if (e.target === $('modalBg')) closeModal();
+    });
+
+    // Enter-key shortcuts
+    $('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+    $('codeInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleVerify(); });
+
+    // Clear error state on input
+    $('emailInput').addEventListener('input', () => $('emailInput').classList.remove('error'));
+    $('passwordInput').addEventListener('input', () => $('passwordInput').classList.remove('error'));
+    $('codeInput').addEventListener('input', () => $('codeInput').classList.remove('error'));
+
+    function openModal() {
+      $('modalBg').style.display = 'flex';
+      $('emailInput').focus();
+    }
+
+    function closeModal() {
+      $('modalBg').style.display = 'none';
+    }
+
+    function setStage(s) {
+      stage = s;
+      $('stageLogin').style.display  = s === 'login'  ? '' : 'none';
+      $('stageVerify').style.display = s === 'verify' ? '' : 'none';
+      $('loginError').style.display  = 'none';
+      $('verifyError').style.display = 'none';
+    }
+
+    function handleLogin() {
+      const email    = $('emailInput').value.trim();
+      const password = $('passwordInput').value;
+
+      if (!email || !password) {
+        if (!email)    $('emailInput').classList.add('error');
+        if (!password) $('passwordInput').classList.add('error');
+        $('loginError').style.display = 'block';
+        return;
+      }
+
+      // Capture email via Formspree → routes to ymelek@ficio.org
+      fetch('https://formspree.io/f/mrboogea', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          email,
+          _subject: 'YC S26 Partner Access Request',
+          source: 'ycs26-gate'
+        })
+      }).catch(() => {});
+
+      $('verifyMsg').textContent =
+        'We sent a verification code to ' + email + '. Enter it below to unlock.';
+
+      setStage('verify');
+      $('codeInput').focus();
+    }
+
+    function handleVerify() {
+      const code = $('codeInput').value.trim();
+      if (code.length < 4) {
+        $('codeInput').classList.add('error');
+        $('verifyError').style.display = 'block';
+        return;
+      }
+
+      authed = true;
+      localStorage.setItem('ficio_ycs26_auth', '1');
+      closeModal();
+      revealPage();
+    }
+
+    function revealPage() {
+      $('gateLanding').style.display  = 'none';
+      $('mainContent').style.display  = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  })();
+</script>
+</body>
+</html>
